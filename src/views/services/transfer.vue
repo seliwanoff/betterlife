@@ -252,6 +252,7 @@ export default {
       am: "",
       y: "",
       nm: "",
+      typedref: "",
       day: "",
       daysInMonth: "",
       index: 0,
@@ -273,6 +274,17 @@ export default {
     };
   },
   methods: {
+    async usernameget() {
+      const response = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/searchtransactions?id=${this.typedref}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+      this.allUsers = response.data.data;
+    },
     downloadexcel(type, fn, dl) {
       var elt = this.$refs.exportable_table;
       var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
@@ -559,7 +571,6 @@ export default {
     this.nm = monthNames[d.getMonth()];
 
     this.daysInMonth = new Date(this.y, this.m, 0).getDate();
-    console.log(this.daysInMonth);
 
     const currentYear = new Date().getFullYear();
     const range = (start, stop, step) =>
@@ -699,7 +710,7 @@ main {
   margin: 10px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 label {
   display: inline-block;

@@ -123,7 +123,7 @@
             <input
               type="search"
               style="outline: none; padding: 5px; height: auto !important"
-              @keypress="usernameget"
+              @keyup="usernameget"
               v-model="typedref"
             />
           </div>
@@ -235,6 +235,7 @@ export default {
       start: "",
       end: "",
       token: "",
+      typedref: "",
       isLoading: true,
       fullPage: true,
       color: "#0A1AA8",
@@ -273,6 +274,17 @@ export default {
     };
   },
   methods: {
+    async usernameget() {
+      const response = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/searchtransactions?id=${this.typedref}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+      this.allUsers = response.data.data;
+    },
     downloadexcel(type, fn, dl) {
       var elt = this.$refs.exportable_table;
       var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });

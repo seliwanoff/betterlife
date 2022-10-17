@@ -665,7 +665,7 @@
             <label for="search">serach:</label>
             <input
               type="search"
-              style="ouyline: none"
+              style="outline: none; padding: 4px"
               @keyup="usernameget"
               v-model="typedusername"
             />
@@ -844,12 +844,11 @@ export default {
           }
         );
         this.allUsers = response.data.data;
-        this.totalpage = response.data.data.total;
-
-      this.per_page = response.data.data.per_page;
-      this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     downloadexcel(type, fn, dl) {

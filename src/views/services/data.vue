@@ -129,7 +129,7 @@
                 <input
                   type="search"
                   style="outline: none; padding: 5px; height: auto !important"
-                  @keypress="usernameget"
+                  @keyup="usernameget"
                   v-model="typedref"
                 />
               </div>
@@ -339,6 +339,7 @@ export default {
       status: null,
       message: "",
       btnText: "Continue",
+      typedref: "",
       isDisabled: false,
       showsce: false,
       amount: "",
@@ -389,6 +390,17 @@ export default {
     };
   },
   methods: {
+    async usernameget() {
+      const response = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/searchtransactions?id=${this.typedref}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+      this.airtimeTransaction = response.data.data;
+    },
     downloadexcel(type, fn, dl) {
       var elt = this.$refs.exportable_table;
       var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
@@ -799,7 +811,6 @@ export default {
           },
         }
       );
-      console.log(getUsers);
       this.airtimeTransaction = getUsers.data.data.data;
       this.totalpage = getUsers.data.data.total;
       this.per_page = getUsers.data.data.per_page;

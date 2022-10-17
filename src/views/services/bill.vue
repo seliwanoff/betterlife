@@ -124,7 +124,7 @@
             <input
               type="search"
               style="outline: none; padding: 5px; height: auto !important"
-              @keypress="usernameget"
+              @keyup="usernameget"
               v-model="typedref"
             />
           </div>
@@ -234,6 +234,7 @@ export default {
       occurence: "",
       time: "",
       start: "",
+      typedref: "",
       end: "",
       token: "",
       isLoading: true,
@@ -246,7 +247,7 @@ export default {
       page: "",
       totalpage: 0,
       moment: moment,
-      allUsers: "",
+      allUsers: [],
       myear: "",
       m: "",
       ys: [],
@@ -254,6 +255,7 @@ export default {
       y: "",
       nm: "",
       day: "",
+
       daysInMonth: "",
       index: 0,
       totalAmount: 0,
@@ -274,6 +276,17 @@ export default {
     };
   },
   methods: {
+    async usernameget() {
+      const response = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/searchtransactions?id=${this.typedref}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+      this.allUsers = response.data.data;
+    },
     downloadexcel(type, fn, dl) {
       var elt = this.$refs.exportable_table;
       var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
@@ -695,8 +708,8 @@ main {
   padding: 10px;
   margin: 10px;
 
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: flex-end;
 }
 label {
   display: inline-block;
