@@ -52,9 +52,10 @@
                   <option value="0">Disabled</option>
                 </select>
               </div>
+
               <div class="ml-xf tcg-lf">
-                <label for="email">Switch Airtime To cash</label> <br />
-                <select v-model="airtime" class="inp-value">
+                <label for="email">Airtime to cash </label> <br />
+                <select v-model="airtimetocash" class="inp-value">
                   <option value="1">Enabled</option>
                   <option value="0">Disabled</option>
                 </select>
@@ -68,6 +69,13 @@
                 <label for="email">MTN Number <small>(airtime to cash)</small></label>
                 <br />
                 <input type="tel" class="inp-value" v-model="cashmtn" step="any" />
+              </div>
+              <div class="ml-xf tcg-lf">
+                <label for="email"
+                  >Airtime 2 cash %<small>( % airtime to cash)</small></label
+                >
+                <br />
+                <input type="tel" class="inp-value" v-model="airtime" step="any" />
               </div>
               <div class="ml-xf">
                 <button :disabled="isDisabled" style="margin-top: 10px !important">
@@ -143,6 +151,7 @@ export default {
       cashmtn: "",
       cashglo: "",
       airtime: 1,
+      airtimetocash: 0,
     };
   },
 
@@ -155,7 +164,7 @@ export default {
       const response = await axios.get(
         `${process.env.VUE_APP_BASE_URL}api/getmanagement`
       );
-
+      this.airtimetocash = response.data.data.airimetocashstatus;
       this.ndata = response.data.data.ndata;
       this.mdata = response.data.data.mdata;
       this.nairtime = response.data.data.nairtime;
@@ -264,6 +273,7 @@ export default {
         cashmtn: this.cashmtn,
         cashglo: this.cashglo,
         airtime: this.airtime,
+        airimetocashstatus: this.airtimetocash,
       };
       try {
         const headers = {

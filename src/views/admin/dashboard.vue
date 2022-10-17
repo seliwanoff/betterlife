@@ -147,6 +147,23 @@
                 <span class="fa fa-angle-right icon-menu"></span>
               </router-link>
             </li>
+            <li class="width:100%;border:1px solid black;margin-top:0px">
+              <router-link
+                to="/admin/transaction"
+                style="width: 100%; display: flex; justify-content: space-between"
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-bars icon-menu"></span>
+                  </span>
+
+                  Transaction
+                </span>
+
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
             <!--  <li class="width:100%;border:1px solid black">
                 <router-link to="/user/transaction" style="width:100%;display:flex;justify-content:space-between"  active-class="bd-l">
                  <span class="menu-item">
@@ -239,6 +256,23 @@
                   </span>
 
                   Airtime</span
+                >
+
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/service/airtime2cash"
+                style="width: 100%; display: flex; justify-content: space-between"
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-phone icon-menu"></span>
+                  </span>
+
+                  Airtime 2 cash</span
                 >
 
                 <span class="fa fa-angle-right icon-menu"></span>
@@ -399,6 +433,176 @@
                 <span class="fa fa-angle-right icon-menu"></span>
               </router-link>
             </li>
+            <li class="services">Plan settings</li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/plan/mtn"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-cog icon-menu"></span>
+                  </span>
+
+                  MTN</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/plan/Airtel"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-cog icon-menu"></span>
+                  </span>
+
+                  Airtel</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/plan/mobile"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-cog icon-menu"></span>
+                  </span>
+
+                  9Mobile</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/plan/glo"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-bell icon-menu"></span>
+                  </span>
+
+                  GLO</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="services">TV settings</li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/tv/dstv"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-cog icon-menu"></span>
+                  </span>
+
+                  DSTV</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/tv/gotv"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-cog icon-menu"></span>
+                  </span>
+
+                  GOTV</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/tv/startimes"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-cog icon-menu"></span>
+                  </span>
+
+                  STARTIMES</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
+            <li class="width:100%;border:1px solid black">
+              <router-link
+                to="/tv/showmax"
+                style="
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  height: 100%;
+                "
+                active-class="bd-l"
+              >
+                <span class="menu-item">
+                  <span class="chl-ck">
+                    <span class="fa fa-bell icon-menu"></span>
+                  </span>
+
+                  SHOWMAX</span
+                >
+                <span class="fa fa-angle-right icon-menu"></span>
+              </router-link>
+            </li>
             <li
               class="width:100%;border:1px solid black"
               style="margin-bottom: 60px !important"
@@ -430,31 +634,62 @@
       <div :class="hidemethis ? 'gc-x' : 'wideBody'">
         <div class="cards-info">
           <div class="cards">
-            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/user.png" />
+            <img src="https://img.icons8.com/ios-filled/35/FFFFFF/user.png" />
             <h2>Total User</h2>
             <span>{{ totalpage }}</span>
           </div>
           <div class="cards">
-            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/briefcase.png" />
-            <h2>{{ nm }} Total Transacton</h2>
+            <img src="https://img.icons8.com/ios-filled/35/FFFFFF/briefcase.png" />
+            <h2>Total wallet</h2>
+            <span>&#8358;{{ Intl.NumberFormat().format(totalwallet) }}</span>
+          </div>
+          <div class="cards">
+            <img src="https://img.icons8.com/ios-filled/35/FFFFFF/briefcase.png" />
+            <h2>{{ nm.slice(0, 4) }} Transacton</h2>
             <span>{{ getTotal }}</span>
           </div>
           <div class="cards">
-            <img src="https://img.icons8.com/dotty/50/FFFFFF/get-revenue--v3.png" />
-            <h2>{{ nm }} Total Income</h2>
-            <span>&#8358;{{ Intl.NumberFormat().format(totalAmount) }}</span>
+            <img src="https://img.icons8.com/dotty/35/FFFFFF/get-revenue--v3.png" />
+            <h2 style="overflow: hidden">{{ nm.slice(0, 4) }} Income</h2>
+            <span style="overflow: hidden"
+              >&#8358;{{ Intl.NumberFormat().format(totalAmount) }}</span
+            >
           </div>
         </div>
         <h2 class="hc-x">User Information</h2>
         <main>
-          <!-- <div class="info-ipx-col">
-                <label for="search">
-                  Search: <input type="search" placeholder="Search Transaction" />
-                </label>
-              </div>
-              -->
+          <div style="max-width: 300px; width: 100%; margin: 0px auto">
+            <canvas id="myChart" width="50" height="50"></canvas>
+          </div>
+          <div class="info-ipx-col">
+            <label for="search">serach:</label>
+            <input
+              type="search"
+              style="ouyline: none"
+              @keyup="usernameget"
+              v-model="typedusername"
+            />
+          </div>
+          <div class="info-ipx-col">
+            <label for="search">
+              <button
+                @click="downloadexcel('xls')"
+                id="download"
+                style="margin-right: 10px"
+              >
+                Export Excel
+              </button>
+              <button @click="download" id="download">Export PDF</button>
+            </label>
+          </div>
+
           <div class="icl-tbl">
-            <table class="table-body" v-if="allUsers != 0">
+            <table
+              class="table-body"
+              v-if="allUsers != 0"
+              id="content"
+              ref="exportable_table"
+            >
               <thead>
                 <tr role="row">
                   <th>Username</th>
@@ -521,6 +756,11 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import Chart from "chart.js/auto";
+import * as XLSX from "xlsx/xlsx.mjs";
+
 export default {
   name: "Bill -app",
   components: { Loading },
@@ -575,12 +815,59 @@ export default {
       y: "",
       m: "",
       nm: "",
+      totalwallet: 0,
       totalpages: 100,
       usertype: "",
       us: "",
+      chartData: {
+        "2017-05-13": 2,
+        "2017-05-14": 5,
+      },
+      airtime: 0,
+      bill: 0,
+      data: 0,
+      cable: 0,
+      typedusername: "",
     };
   },
   methods: {
+    async usernameget() {
+      try {
+        const data = JSON.parse(localStorage.getItem("admin"));
+        this.token = data.token;
+        const response = await axios.get(
+          `${process.env.VUE_APP_BASE_URL}api/searchusers?id=${this.typedusername}`,
+          {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          }
+        );
+        this.allUsers = response.data.data;
+        this.totalpage = response.data.data.total;
+
+      this.per_page = response.data.data.per_page;
+      this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    downloadexcel(type, fn, dl) {
+      var elt = this.$refs.exportable_table;
+      var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
+      return dl
+        ? XLSX.write(wb, { bookType: type, bookSST: true, type: "base64" })
+        : XLSX.writeFile(wb, fn || "SheetJSTableExport." + (type || "xlsx"));
+    },
+    download() {
+      window.html2canvas = html2canvas;
+      const doc = new jsPDF("p", "pt", "a2");
+      doc.html(document.querySelector("#content"), {
+        callback: function (pdf) {
+          pdf.save("Users.pdf");
+        },
+      });
+    },
     async logOut() {
       try {
         const data = JSON.parse(localStorage.getItem("admin"));
@@ -592,10 +879,13 @@ export default {
             Authorization: "Bearer " + this.token,
           },
         });
-
+        localStorage.removeItem("admin");
         this.$router.push("/");
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/panel/login");
+          localStorage.removeItem("admin");
+        }
       }
     },
     getDimensions() {
@@ -632,10 +922,12 @@ export default {
             },
           }
         );
-
         this.allUsers = getUsers.data.data.data;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/panel/login");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async prev() {
@@ -659,7 +951,10 @@ export default {
 
         this.allUsers = getUsers.data.data.data;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async next() {
@@ -683,7 +978,10 @@ export default {
 
         this.allUsers = getUsers.data.data.data;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getUsersByUsername(username) {
@@ -718,7 +1016,10 @@ export default {
 
         this.isLoading = false;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async deleteUsers(status, id) {
@@ -735,7 +1036,10 @@ export default {
         });
         this.deleteText = "Deleted";
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async restoreUser(status, id) {
@@ -754,7 +1058,10 @@ export default {
         this.restoreTet = "Restored";
         this.blockText = "Blocked";
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     getEachUserTransaction(id) {
@@ -803,13 +1110,34 @@ export default {
           Authorization: "Bearer " + this.token,
         },
       });
+
       this.allUsers = getUsers.data.data.data;
       this.totalpage = getUsers.data.data.total;
 
       this.per_page = getUsers.data.data.per_page;
       this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/panel/login");
+        localStorage.removeItem("admin");
+      }
+    }
+    try {
+      const totalwallet = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/gettotalwalletbalance`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+
+      this.totalwallet = totalwallet.data.totalbalance;
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.$router.push("/panel/login");
+        localStorage.removeItem("admin");
+      }
     }
 
     try {
@@ -825,12 +1153,124 @@ export default {
       this.getTotal = gettransactions.data.data.total;
       this.totalAmount = gettransactions.data.total;
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
+    }
+    try {
+      const gettransactions = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=1&month=${this.m}&year=${this.y}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+
+      this.airtime = parseInt(gettransactions.data.data.total);
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
+    }
+    try {
+      const gettransactions = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=2&month=${this.m}&year=${this.y}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+
+      this.data = parseInt(gettransactions.data.data.total);
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
+    }
+    try {
+      const gettransactions = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=3&month=${this.m}&year=${this.y}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+
+      this.cable = parseInt(gettransactions.data.data.total);
+      console.log(this.cable);
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
+    }
+    try {
+      const gettransactions = await axios.get(
+        `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=5&month=${this.m}&year=${this.y}`,
+        {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        }
+      );
+
+      this.bill = parseInt(gettransactions.data.data.total);
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     const datas = JSON.parse(localStorage.getItem("admin"));
     this.token = datas.token;
     this.usertype = datas.data.type;
     this.us = data.data.username;
+    const ctx = document.getElementById("myChart");
+    const myChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Airtime", "Data", "Bill", "Cable"],
+        datasets: [
+          {
+            label: "Scales of transaction",
+            data: [this.airtime, this.data, this.bill, this.cable],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: null,
+            display: false,
+          },
+        },
+      },
+    });
+
+    myChart;
     this.isLoading = false;
   },
 };
@@ -894,7 +1334,7 @@ main {
     margin-left: 12px;
   }
   .fa-bars {
-    margin-top: -20px !important;
+    margin-top: -20px;
   }
 }
 .ml-xf {
@@ -950,9 +1390,8 @@ label input {
   padding: 10px;
   margin: 10px;
 
-  overflow: hidden;
+  overflow: auto;
 }
-
 .table-body {
   padding: 10px;
   border: 1px solid #ccc;
@@ -977,6 +1416,7 @@ tbody tr td {
   text-align: center;
   padding: 0.35rem 0.9rem;
   border: 1px solid rgb(236, 230, 230);
+  max-width: 50px !important;
 }
 @media screen and (max-width: 499px) {
   .table-body thead tr th {
@@ -1077,12 +1517,7 @@ img {
     height: 30px;
   }
 }
-.router {
-  padding: 3px;
-  border-radius: 100%;
-  border: 1px solid #0a1aa8;
-  font-size: 0.8rem;
-}
+
 .pg-btn {
   padding: 2px;
   border-radius: 3px;
@@ -1184,8 +1619,6 @@ header {
   box-shadow: 0px 2px 30px 2px rgb(0 0 0 / 10%);
   height: 70px;
   z-index: 100000;
-  left: 0 auto;
-  right: 0 auto;
 }
 nav {
   height: 100%;
@@ -1216,7 +1649,6 @@ nav {
 .image-home img {
   width: 36px;
   float: left;
-  width: 150px;
 }
 .image-home {
   width: 100%;
@@ -1327,5 +1759,23 @@ i {
   padding: 10px;
   border-radius: 5px;
   width: 100%;
+}
+.router {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 36px;
+  font-size: 20px !important;
+}
+#download {
+  background: #0a1aa8;
+  color: #fff;
+  padding: 5px;
+  border: none;
+}
+.image-home img {
+  width: 36px;
+  float: left;
+  width: 150px;
 }
 </style>

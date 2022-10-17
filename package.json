@@ -9,15 +9,18 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "chart.js": "^3.9.1",
     "core-js": "^3.8.3",
     "install": "^0.13.0",
+    "jspdf": "^2.5.1",
     "jw-vue-pagination": "^1.0.3",
     "v-pagination-3": "^0.1.7",
     "vue": "^3.2.13",
     "vue-loading-overlay": "5.0",
     "vue-moment": "^4.1.0",
     "vue-router": "^4.0.16",
-    "vuejs-paginator": "^2.0.2"
+    "vuejs-paginator": "^2.0.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -23,6 +23,23 @@
               <span class="fa fa-angle-right icon-menu"></span>
             </router-link>
           </li>
+          <li class="width:100%;border:1px solid black;margin-top:0px">
+            <router-link
+              to="/admin/transaction"
+              style="width: 100%; display: flex; justify-content: space-between"
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-bars icon-menu"></span>
+                </span>
+
+                Transaction
+              </span>
+
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
           <!--  <li class="width:100%;border:1px solid black">
                 <router-link to="/user/transaction" style="width:100%;display:flex;justify-content:space-between"  active-class="bd-l">
                  <span class="menu-item">
@@ -115,6 +132,23 @@
                 </span>
 
                 Airtime</span
+              >
+
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/service/airtime2cash"
+              style="width: 100%; display: flex; justify-content: space-between"
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-phone icon-menu"></span>
+                </span>
+
+                Airtime 2 cash</span
               >
 
               <span class="fa fa-angle-right icon-menu"></span>
@@ -365,6 +399,7 @@ aside {
   height: 100%;
   position: fixed;
   top: 50;
+  left: 0;
 }
 
 .side-main-bar {

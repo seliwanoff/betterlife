@@ -111,8 +111,8 @@ header {
   box-shadow: 0px 2px 30px 2px rgb(0 0 0 / 10%);
   height: 70px;
   z-index: 100000;
-  left: 0 auto;
-  right: 0 auto;
+
+  right: 0;
 }
 nav {
   height: 100%;

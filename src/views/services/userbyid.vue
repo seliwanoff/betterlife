@@ -61,7 +61,7 @@
                 </select>
               </label>
               <label for="search">
-                Years:
+                Year:
                 <select v-model="y" @click="getYearTransact(y)">
                   <option :value="item" v-for="item in ys" :key="item.index">
                     {{ item }}

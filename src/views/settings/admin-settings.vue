@@ -201,8 +201,8 @@
                   <div class="ml-xf tcg-lf">
                     <label for="email"> MTN Data API</label> <br />
                     <select name="" id="" v-model="mtnapi">
-                      <option :value="1">SME PLUG</option>
-                      <option :value="2">CARDRI</option>
+                      <option :value="2">SME PLUG</option>
+                      <option :value="1">CARDRI</option>
                     </select>
                   </div>
 
@@ -317,6 +317,7 @@ export default {
       airtime: "",
       cashglo: "",
       cashmtn: "",
+      airtimetocash: 0,
     };
   },
 
@@ -349,6 +350,7 @@ export default {
       this.cashmtn = response.data.data.cashmtn;
       this.cashglo = response.data.data.cashglo;
       this.airtime = response.data.data.airtime;
+      this.airtimetocash = response.data.data.airimetocashstatus;
 
       this.cbill = response.data.data.cbill;
     } catch (e) {
@@ -438,7 +440,9 @@ export default {
         cashmtn: this.cashmtn,
         cashglo: this.cashglo,
         airtime: this.airtime,
+        airimetocashstatus: this.airtimetocash,
       };
+      console.log(data);
       try {
         const headers = {
           "Content-Type": "application/json",

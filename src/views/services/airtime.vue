@@ -22,7 +22,43 @@
               <div class="info-ipx-col">
                 <div style="width: 100%">
                   <label for="search">
-                    Days:
+                    From:
+                    <select name="" id="" v-model="day" @click="getDaysValue(day)">
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+                    </select>
+                  </label>
+                  <label for="search">
+                    To:
                     <select name="" id="" v-model="day" @click="getDaysValue(day)">
                       <option value="01">01</option>
                       <option value="02">02</option>
@@ -67,7 +103,7 @@
                     </select>
                   </label>
                   <label for="search">
-                    Years:
+                    Year:
                     <select v-model="y" @click="getYearTransact(y)">
                       <option :value="item" v-for="item in ys" :key="item.index">
                         {{ item }}
@@ -88,8 +124,35 @@
                   </div>
                 </div>
               </div>
+              <div class="info-ipx-col">
+                <label for="search" style="width: auto !important">serach:</label>
+                <input
+                  type="search"
+                  style="outline: none; padding: 5px; height: auto !important"
+                  @keypress="usernameget"
+                  v-model="typedref"
+                />
+              </div>
+
+              <div class="info-ipx-col">
+                <label for="search">
+                  <button
+                    @click="downloadexcel('xls')"
+                    id="download"
+                    style="margin-right: 10px"
+                  >
+                    Export Excel
+                  </button>
+                  <button @click="download" id="download">Export PDF</button>
+                </label>
+              </div>
               <div class="icl-tbl">
-                <table class="table-body" v-if="airtimeTransaction != 0">
+                <table
+                  class="table-body"
+                  v-if="airtimeTransaction != 0"
+                  id="content"
+                  ref="exportable_table"
+                >
                   <thead>
                     <tr role="row">
                       <th>Transaction ID</th>
@@ -185,7 +248,7 @@
             </main>
           </Tab>
           <Tab :isSelected="selected === 'Schedule'">
-            <main>
+            <main id="content">
               <div class="icl-tbl">
                 <table class="table-body" v-if="airtimeSchedule != 0">
                   <thead>
@@ -262,6 +325,10 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import TabNav from "@/components/tabnav.vue";
 import Tab from "@/components/tab.vue";
 import moment from "moment";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import * as XLSX from "xlsx/xlsx.mjs";
+
 export default {
   name: "Bill -app",
   components: { Header2, Loading, TabNav, Tab },
@@ -322,6 +389,22 @@ export default {
     };
   },
   methods: {
+    downloadexcel(type, fn, dl) {
+      var elt = this.$refs.exportable_table;
+      var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
+      return dl
+        ? XLSX.write(wb, { bookType: type, bookSST: true, type: "base64" })
+        : XLSX.writeFile(wb, fn || "SheetJSTableExport." + (type || "xlsx"));
+    },
+    download() {
+      window.html2canvas = html2canvas;
+      const doc = new jsPDF("p", "pt", "a2");
+      doc.html(document.querySelector("#content"), {
+        callback: function (pdf) {
+          pdf.save("airtime.pdf");
+        },
+      });
+    },
     async getMonthNumber(m) {
       this.nm = this.months[m];
 
@@ -355,7 +438,10 @@ export default {
             this.totalAmount + parseInt(this.airtimeTransaction[i].amount);
         }
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getDaysValue(day) {
@@ -382,7 +468,10 @@ export default {
         this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getYearTransact(year) {
@@ -408,7 +497,10 @@ export default {
           this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       } else {
         try {
@@ -427,7 +519,10 @@ export default {
           this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       }
     },
@@ -472,7 +567,10 @@ export default {
           //this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       } else {
         try {
@@ -490,7 +588,10 @@ export default {
           //this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       }
     },
@@ -522,7 +623,10 @@ export default {
         this.totalAmount = getUsers.data.total;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async next() {
@@ -552,7 +656,10 @@ export default {
         this.totalAmount = getUsers.data.total;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
 
@@ -577,7 +684,10 @@ export default {
 
         this.airtimeTransaction = getUsers.data.data.data;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async prevs() {
@@ -601,7 +711,10 @@ export default {
         this.airtimeTransaction = getUsers.data.data.data;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async nexts() {
@@ -625,7 +738,10 @@ export default {
         this.airtimeTransaction = getUsers.data.data.data;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getTransactionDetailUsers(userid, ref) {
@@ -690,7 +806,10 @@ export default {
       this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
       this.totalAmount = getUsers.data.total;
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     try {
       const getUsers = await axios.get(
@@ -706,7 +825,10 @@ export default {
       this.per_pages = getUsers.data.data.per_page;
       this.pages = Math.ceil(parseInt(this.totalpages / this.per_pages) + 1);
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     this.isLoading = false;
   },
@@ -924,5 +1046,11 @@ select {
   width: 100%;
   border: 3px solid #0a1aa8;
   padding: 5px;
+}
+#download {
+  background: #0a1aa8;
+  color: #fff;
+  padding: 5px;
+  border: none;
 }
 </style>

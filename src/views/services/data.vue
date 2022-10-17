@@ -22,7 +22,43 @@
               <div class="info-ipx-col">
                 <div style="width: 100%">
                   <label for="search">
-                    Days:
+                    From:
+                    <select name="" id="" v-model="day" @click="getDaysValue(day)">
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+                    </select>
+                  </label>
+                  <label for="search">
+                    To:
                     <select name="" id="" v-model="day" @click="getDaysValue(day)">
                       <option value="01">01</option>
                       <option value="02">02</option>
@@ -67,7 +103,7 @@
                     </select>
                   </label>
                   <label for="search">
-                    Years:
+                    Year:
                     <select v-model="y" @click="getYearTransact(y)">
                       <option :value="item" v-for="item in ys" :key="item.index">
                         {{ item }}
@@ -82,46 +118,108 @@
                     <span>{{ totalpage }}</span>
                   </div>
                   <div class="cvlp">
-                    <h3>{{ nm }} Total Cable Income</h3>
+                    <h3>{{ nm }} Total Data Income</h3>
                     <br />
                     <span>&#8358;{{ Intl.NumberFormat().format(totalAmount) }}</span>
                   </div>
                 </div>
               </div>
+              <div class="info-ipx-col">
+                <label for="search" style="width: auto !important">serach:</label>
+                <input
+                  type="search"
+                  style="outline: none; padding: 5px; height: auto !important"
+                  @keypress="usernameget"
+                  v-model="typedref"
+                />
+              </div>
+              <div class="info-ipx-col">
+                <label for="search">
+                  <button
+                    @click="downloadexcel('xls')"
+                    id="download"
+                    style="margin-right: 10px"
+                  >
+                    Export Excel
+                  </button>
+                  <button @click="download" id="download">Export PDF</button>
+                </label>
+              </div>
               <div class="icl-tbl">
-                <table class="table-body" v-if="airtimeTransaction != 0">
+                <table
+                  class="table-body"
+                  v-if="airtimeTransaction != 0"
+                  id="content"
+                  ref="exportable_table"
+                >
                   <thead>
                     <tr role="row">
                       <th>Transaction ID</th>
                       <th>Time</th>
-                      <th>User</th>
+                      <th>Receiver</th>
                       <th>Network</th>
                       <th>Plan</th>
+
                       <th>Bal Before</th>
                       <th>Bal After</th>
                       <th>Amount</th>
-                      <th>Source</th>
                       <th>Status</th>
+                      <!--<th>Action</th>-->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="item in airtimeTransaction" :key="item.id">
+                    <tr
+                      v-for="item in airtimeTransaction"
+                      :key="item.id"
+                      @click="getTransactionDetailUsers(item.user, item.ref)"
+                    >
                       <td>{{ item.ref }}</td>
                       <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
                       <td>{{ item.reciever }}</td>
-                      <td v-if="item.name == 1">MTN</td>
 
-                      <td v-else-if="item.name == 2">Airtel</td>
-                      <td v-else-if="item.name == 3">9mobile</td>
-                      <td v-else-if="item.name == 4">GLO</td>
-                      <td v-else>{{ item.name }}</td>
+                      <td v-if="item.name == 1 && item.name != 'succesfull'">MTN</td>
+                      <td v-else-if="item.name == 2 && item.name != 'succesfull'">
+                        Airtel
+                      </td>
+                      <td v-else-if="item.name == 3 && item.name != 'succesfull'">
+                        9mobile
+                      </td>
+                      <td v-else-if="item.name == 4 && item.name != 'succesfull'">GLO</td>
+                      <td
+                        v-else-if="
+                          item.name != 1 &&
+                          item.name != 2 &&
+                          item.name != 3 &&
+                          item.name != 4 &&
+                          item.name != 'succesfull'
+                        "
+                      >
+                        {{ item.name }}
+                      </td>
+
+                      <td v-if="item.network == 1 && item.name == 'succesfull'">MTN</td>
+                      <td v-else-if="item.network == 2 && item.name == 'succesfull'">
+                        Airtel
+                      </td>
+                      <td v-else-if="item.network == 3 && item.name == 'succesfull'">
+                        9mobile
+                      </td>
+                      <td v-else-if="item.network == 4 && item.name == 'succesfull'">
+                        GLO
+                      </td>
                       <td>{{ item.plan }}</td>
                       <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
                       <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
                       <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
-                      <td>{{ item.m }}</td>
                       <td v-if="item.status == 1">Completed</td>
                       <td v-if="item.status == 0">Failed</td>
+                      <!---
+                      <td>
+                        <button @click="getEachUserDetails" class="btn-details">
+                          Details
+                        </button>
+                      </td>
+                      -->
                     </tr>
                   </tbody>
                   <tfoot>
@@ -150,20 +248,20 @@
             </main>
           </Tab>
           <Tab :isSelected="selected === 'Schedule'">
-            <main>
+            <main id="content">
               <div class="icl-tbl">
                 <table class="table-body" v-if="airtimeSchedule != 0">
                   <thead>
                     <tr role="row">
                       <th>Transaction ID</th>
                       <th>Time</th>
-                      <th>Receiver</th>
+                      <th>User</th>
                       <th>Network</th>
-                      <th>Plan</th>
-                      <th>Bal Before</th>
-                      <th>Bal After</th>
+
                       <th>Amount</th>
+                      <th>Source</th>
                       <th>Status</th>
+                      <!-- <th>Action</th>-->
                     </tr>
                   </thead>
                   <tbody>
@@ -172,9 +270,8 @@
                       <td>{{ moment(item.updated_at).format("d-m-yyyy") }}</td>
                       <td>{{ item.reciever }}</td>
                       <td>{{ item.name }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
                       <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
+                      <td>{{ item.m }}</td>
                       <td v-if="item.status == 1">Completed</td>
                       <td v-if="item.status == 0">Failed</td>
                       <!--<td>
@@ -187,24 +284,25 @@
                     </tr>
                   </tbody>
                   <tfoot>
-                    <tr
-                      v-for="item in airtimeSchedule"
-                      :key="item.id"
-                      @click="getTransactionDetailUsers(item.user, item.ref)"
-                    >
-                      <td>{{ item.ref }}</td>
-                      <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
-                      <td>{{ item.reciever }}</td>
-                      <td v-if="item.name == 1">MTN</td>
-
-                      <td v-else-if="item.name == 2">Airtel</td>
-                      <td v-else-if="item.name == 3">9mobile</td>
-                      <td v-else-if="item.name == 4">GLO</td>
-                      <td v-else>{{ item.name }}</td>
-                      <td>{{ item.plan }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
-                      <td v-if="item.status == 1">Completed</td>
-                      <td v-if="item.status == 0">Failed</td>
+                    <tr>
+                      <button @click="prevs" class="pg-btn" :disabled="pageNumber <= 1">
+                        prev
+                      </button>
+                      <span v-for="(item, index) in new Array(page)" :key="index">
+                        <button
+                          :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
+                          @click="pageNumbergets(index)"
+                        >
+                          {{ index + 1 }}
+                        </button>
+                      </span>
+                      <button
+                        @click="nexts"
+                        class="pg-btn"
+                        :disabled="pageNumber >= page"
+                      >
+                        next
+                      </button>
                     </tr>
                   </tfoot>
                 </table>
@@ -227,6 +325,10 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import TabNav from "@/components/tabnav.vue";
 import Tab from "@/components/tab.vue";
 import moment from "moment";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import * as XLSX from "xlsx/xlsx.mjs";
+
 export default {
   name: "Bill -app",
   components: { Header2, Loading, TabNav, Tab },
@@ -287,6 +389,22 @@ export default {
     };
   },
   methods: {
+    downloadexcel(type, fn, dl) {
+      var elt = this.$refs.exportable_table;
+      var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
+      return dl
+        ? XLSX.write(wb, { bookType: type, bookSST: true, type: "base64" })
+        : XLSX.writeFile(wb, fn || "SheetJSTableExport." + (type || "xlsx"));
+    },
+    download() {
+      window.html2canvas = html2canvas;
+      const doc = new jsPDF("p", "pt", "a2");
+      doc.html(document.querySelector("#content"), {
+        callback: function (pdf) {
+          pdf.save("airtime.pdf");
+        },
+      });
+    },
     async getMonthNumber(m) {
       this.nm = this.months[m];
 
@@ -304,13 +422,26 @@ export default {
             },
           }
         );
-        this.totalAmount = getUsers.data.total;
         this.airtimeTransaction = getUsers.data.data.data;
         this.totalpage = getUsers.data.data.total;
         this.per_page = getUsers.data.data.per_page;
         this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
+        var i;
+        this.totalAmount = 0;
+        for (i = 0; i < this.totalpage; i++) {
+          this.transStatus = this.airtimeTransaction[i].status;
+
+          if (this.transStatus == "0") {
+            continue;
+          }
+          this.totalAmount =
+            this.totalAmount + parseInt(this.airtimeTransaction[i].amount);
+        }
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getDaysValue(day) {
@@ -329,7 +460,7 @@ export default {
             },
           }
         );
-        console.log(getUsers);
+
         this.airtimeTransaction = getUsers.data.data.data;
 
         this.totalpage = getUsers.data.data.total;
@@ -337,7 +468,10 @@ export default {
         this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getYearTransact(year) {
@@ -357,14 +491,16 @@ export default {
               },
             }
           );
-
           this.airtimeTransaction = getUsers.data.data.data;
           this.totalpage = getUsers.data.data.total;
           this.per_page = getUsers.data.data.per_page;
           this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       } else {
         try {
@@ -381,10 +517,12 @@ export default {
           this.totalpage = getUsers.data.data.total;
           this.per_page = getUsers.data.data.per_page;
           this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
-
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       }
     },
@@ -422,26 +560,38 @@ export default {
               },
             }
           );
-          this.allUsers = getUsers.data.data.data;
+          this.airtimeTransaction = getUsers.data.data.data;
+          console.log(this.airtimeTransaction);
+          this.totalpage = getUsers.data.data.total;
+          //this.per_page = getUsers.data.data.per_page;
+          //this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       } else {
         try {
           const getUsers = await axios.get(
-            `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=2&month=${this.am}&year=${this.y}&page=${this.pageNumber}`,
+            `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=2&month=${this.am}&year=${this.y}page=${this.pageNumber}`,
             {
               headers: {
                 Authorization: "Bearer " + this.token,
               },
             }
           );
-          this.allUsers = getUsers.data.data.data;
-
+          this.airtimeTransaction = getUsers.data.data.data;
+          this.totalpage = getUsers.data.data.total;
+          //this.per_page = getUsers.data.data.per_page;
+          //this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       }
     },
@@ -458,6 +608,7 @@ export default {
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
+
       try {
         const getUsers = await axios.get(
           `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=2&page=${this.pageNumber}&month=${this.am}&year=${this.y}`,
@@ -468,10 +619,14 @@ export default {
           }
         );
 
-        this.allUsers = getUsers.data.data.data;
+        this.airtimeTransaction = getUsers.data.data.data;
+        this.totalAmount = getUsers.data.total;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async next() {
@@ -487,6 +642,7 @@ export default {
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
+
       try {
         const getUsers = await axios.get(
           `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=2&page=${this.pageNumber}&month=${this.am}&year=${this.y}`,
@@ -496,10 +652,14 @@ export default {
             },
           }
         );
-        this.allUsers = getUsers.data.data.data;
+        this.airtimeTransaction = getUsers.data.data.data;
+        this.totalAmount = getUsers.data.total;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
 
@@ -523,9 +683,11 @@ export default {
         );
 
         this.airtimeTransaction = getUsers.data.data.data;
-        this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async prevs() {
@@ -549,7 +711,10 @@ export default {
         this.airtimeTransaction = getUsers.data.data.data;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async nexts() {
@@ -573,7 +738,10 @@ export default {
         this.airtimeTransaction = getUsers.data.data.data;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getTransactionDetailUsers(userid, ref) {
@@ -615,13 +783,13 @@ export default {
     this.token = data.token;
     //if(data.data.type!=3){
     //this.$router.push('/admin/login')
-
     //}
     if (this.m.toString().length == 2) {
       this.am = this.m;
     } else {
       this.am = "0" + parseInt(this.m + 1);
     }
+
     try {
       const getUsers = await axios.get(
         `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=2&month=${this.am}&year=${this.y}`,
@@ -631,15 +799,17 @@ export default {
           },
         }
       );
-
+      console.log(getUsers);
       this.airtimeTransaction = getUsers.data.data.data;
       this.totalpage = getUsers.data.data.total;
       this.per_page = getUsers.data.data.per_page;
       this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
-
       this.totalAmount = getUsers.data.total;
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     try {
       const getUsers = await axios.get(
@@ -655,7 +825,10 @@ export default {
       this.per_pages = getUsers.data.data.per_page;
       this.pages = Math.ceil(parseInt(this.totalpages / this.per_pages) + 1);
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     this.isLoading = false;
   },
@@ -873,5 +1046,11 @@ select {
   width: 100%;
   border: 3px solid #0a1aa8;
   padding: 5px;
+}
+#download {
+  background: #0a1aa8;
+  color: #fff;
+  padding: 5px;
+  border: none;
 }
 </style>

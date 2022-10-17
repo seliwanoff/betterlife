@@ -13,14 +13,26 @@
       <div :class="wideBody ? 'wideBody' : 'gc-x'">
         <h2 class="hc-x">Referral</h2>
         <main>
-          <!-- <div class="info-ipx-col">
-                <label for="search">
-                  Search: <input type="search" placeholder="Search Transaction" />
-                </label>
-              </div>
-              -->
+          <div class="info-ipx-col">
+            <label for="search">
+              <button
+                @click="downloadexcel('xls')"
+                id="download"
+                style="margin-right: 10px"
+              >
+                Export Excel
+              </button>
+
+              <button @click="download" id="download">Export PDF</button>
+            </label>
+          </div>
           <div class="icl-tbl">
-            <table class="table-body" v-if="allUsers != 0">
+            <table
+              class="table-body"
+              v-if="allUsers != 0"
+              id="content"
+              ref="exportable_table"
+            >
               <thead>
                 <tr role="row">
                   <th>Users</th>
@@ -60,6 +72,9 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import moment from "moment";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import * as XLSX from "xlsx/xlsx.mjs";
 
 export default {
   name: "transfer -app",
@@ -95,6 +110,22 @@ export default {
     };
   },
   methods: {
+    downloadexcel(type, fn, dl) {
+      var elt = this.$refs.exportable_table;
+      var wb = XLSX.utils.table_to_book(elt, { sheet: "Sheet JS" });
+      return dl
+        ? XLSX.write(wb, { bookType: type, bookSST: true, type: "base64" })
+        : XLSX.writeFile(wb, fn || "SheetJSTableExport." + (type || "xlsx"));
+    },
+    download() {
+      window.html2canvas = html2canvas;
+      const doc = new jsPDF("p", "pt", "a2");
+      doc.html(document.querySelector("#content"), {
+        callback: function (pdf) {
+          pdf.save("referral.pdf");
+        },
+      });
+    },
     getReferral(username) {
       this.$router.push("/refer/refer_details/" + username);
     },
@@ -126,7 +157,10 @@ export default {
         );
         this.allUsers = getUsers.data.data.data;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async prev() {
@@ -150,7 +184,10 @@ export default {
 
         this.allUsers = getUsers.data.data.data.reverse();
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async next() {
@@ -173,7 +210,10 @@ export default {
         );
         this.allUsers = getUsers.data.data.data.reverse();
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
   },
@@ -195,7 +235,10 @@ export default {
       );
       this.allUsers = getUsers.data.reverse();
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     this.isLoading = false;
   },
@@ -381,5 +424,11 @@ tbody tr td {
   border-radius: 5px;
   font-size: 0.8rem;
   cursor: pointer;
+}
+#download {
+  background: #0a1aa8;
+  color: #fff;
+  padding: 5px;
+  border: none;
 }
 </style>

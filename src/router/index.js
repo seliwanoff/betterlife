@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '../views/admin/dashboard.vue'
+import Transactions from '../views/admin/transaction.vue'
+
 import Login from '../views/admin/login.vue'
 import Cable from '../views/services/cable.vue'
 import Bill from '../views/services/bill.vue'
 import Transfer from '../views/services/transfer.vue'
 import Airtime from '../views/services/airtime.vue'
+import Airtime2cash from '../views/services/airtime2cash.vue'
+
 import Data from '../views/services/data.vue'
 import UserbyID from '../views/services/userbyid.vue'
 
@@ -30,6 +34,11 @@ const routes = [{
         component: Dashboard
     },
     {
+        path: '/admin/transaction',
+        name: 'Better Life | Transaction',
+        component: Transactions
+    },
+    {
         path: '/',
         name: 'Better Life | Admin Login',
         component: Login
@@ -53,6 +62,11 @@ const routes = [{
         path: '/service/airtime',
         name: 'Better Life | Airtime Transaction',
         component: Airtime
+    },
+    {
+        path: '/service/airtime2cash',
+        name: 'Better Life | Airtime2cah Transaction',
+        component: Airtime2cash
     },
     {
         path: '/service/data',

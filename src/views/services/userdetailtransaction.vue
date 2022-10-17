@@ -11,6 +11,7 @@
     <div class="rg-c">
       <div class="gc-x">
         <main>
+          <Message :status="messagestatus" :message="message" />
           <div class="ml-xf">
             <span style="font-size: 0.9rem">Transaction</span>
             <div
@@ -21,7 +22,19 @@
                 font-size: 0.8rem;
                 border-radius: 4px;
               "
-              v-if="status == 1"
+              v-if="status == 1 && type != 11"
+            >
+              Success
+            </div>
+            <div
+              style="
+                color: #fff !important;
+                background: green !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                border-radius: 4px;
+              "
+              v-if="status == 2 && type == 11"
             >
               Success
             </div>
@@ -37,6 +50,18 @@
             >
               Failed
             </div>
+            <div
+              style="
+                color: #fff !important;
+                background: blue !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                border-radius: 4px;
+              "
+              v-if="status == 1 && type == 11"
+            >
+              Under Review
+            </div>
           </div>
           <hr />
           <div class="ml-xf">
@@ -45,6 +70,10 @@
           <div class="ml-xf">
             <span class="mtyl-hdck">Amount</span>
             <span class="tiepl">&#8358;{{ Intl.NumberFormat().format(amount) }}</span>
+          </div>
+          <div class="ml-xf" v-if="type == 11">
+            <span class="mtyl-hdck">Amount to collect</span>
+            <span class="tiepl">&#8358;{{ Intl.NumberFormat().format(fr) }}</span>
           </div>
           <div class="ml-xf" v-if="type == 4">
             <span class="mtyl-hdck">Sender</span>
@@ -79,6 +108,7 @@
             <span class="tiepl" v-else-if="type == 3">Cable Payment</span>
             <span class="tiepl" v-else-if="type == 6">Wallet Funding</span>
             <span class="tiepl" v-else-if="type == 4">Transfer </span>
+            <span class="tiepl" v-else-if="type == 11">Airtime To cash </span>
           </div>
           <div class="ml-xf" v-if="plan != '' && paln != null">
             <span class="mtyl-hdck">Plan</span> <span class="tiepl">{{ plan }}</span>
@@ -105,6 +135,22 @@
             <span class="mtyl-hdck">Date/Time</span>
             <span class="tiepl">{{ moment(date).format("DD-MM-YYYY hh:mm:ss") }}</span>
           </div>
+          <div class="ml-xf" v-if="type == 11 && status == 1">
+            <button
+              :disabled="isdisabled"
+              style="background: green; border: 1px solid green; margin: 5px"
+              @click="acceptairtime(2, trabsactionid)"
+            >
+              {{ btnaccept }}
+            </button>
+            <button
+              :disabled="isdisabled"
+              style="background: crimson; border: 1px solid crimson; margin: 5px"
+              @click="rejectairtime(2, trabsactionid)"
+            >
+              {{ btnreject }}
+            </button>
+          </div>
         </main>
       </div>
     </div>
@@ -116,15 +162,17 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import moment from "moment";
+import Message from "@/components/message.vue";
 
 export default {
   name: "UserTrans -app",
-  components: { Header2, Loading },
+  components: { Header2, Loading, Message },
   data() {
     return {
       id: this.$route.params.id,
       ref: this.$route.params.ref,
       status: null,
+      messagestatus: null,
       before: 0,
       after: 0,
       email: "",
@@ -137,9 +185,11 @@ export default {
       name: null,
       user: "",
       amount: 0,
-
+      fr: 0,
+      btnaccept: "Accept",
+      btnreject: "Reject",
       phone: "",
-
+      getTransaction: "",
       token: "",
       isLoading: true,
       fullPage: true,
@@ -148,9 +198,80 @@ export default {
       moment: moment,
       rafter: 0,
       rbefore: 0,
+      isdisabled: false,
     };
   },
-  methods: {},
+  methods: {
+    async acceptairtime(val, id) {
+      this.btnaccept = "Loading";
+      this.isdisabled = true;
+      const data = JSON.parse(localStorage.getItem("admin"));
+      try {
+        this.token = data.token;
+        const datapost = {
+          id: id,
+          val: val,
+        };
+
+        await axios.post(
+          `${process.env.VUE_APP_BASE_URL}api/updatairtimetocash`,
+          datapost,
+          {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          }
+        );
+        this.messagestatus = true;
+        this.message = "Settled";
+        this.isdisabled = false;
+        this.interval = setTimeout(() => {
+          this.messagestatus = null;
+        }, 3000);
+      } catch (e) {
+        this.message = "Already settled";
+        this.messagestatus = true;
+        this.isdisabled = false;
+        this.interval = setTimeout(() => {
+          this.messagestatus = null;
+        }, 3000);
+      }
+    },
+    async rejectairtime(val, id) {
+      this.btnreject = "Loading";
+      const data = JSON.parse(localStorage.getItem("admin"));
+      try {
+        this.token = data.token;
+        const datapost = {
+          id: id,
+          val: val,
+        };
+
+        await axios.post(
+          `${process.env.VUE_APP_BASE_URL}api/updatairtimetocash`,
+          datapost,
+          {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          }
+        );
+        this.messagestatus = true;
+        this.message = "Rejected Successfully";
+        this.isdisabled = false;
+        this.interval = setTimeout(() => {
+          this.messagestatus = null;
+        }, 3000);
+      } catch (e) {
+        this.message = "Already settled";
+        this.messagestatus = true;
+        this.isdisabled = false;
+        this.interval = setTimeout(() => {
+          this.messagestatus = null;
+        }, 3000);
+      }
+    },
+  },
   async mounted() {
     const data = JSON.parse(localStorage.getItem("admin"));
     try {
@@ -173,11 +294,13 @@ export default {
         }
       );
       this.status = getTransaction.data.data.status;
+      this.trabsactionid = getTransaction.data.data.id;
       this.amount = getTransaction.data.data.amount;
       this.before = getTransaction.data.data.bbefore;
       this.after = getTransaction.data.data.bafter;
       this.commission = getTransaction.data.data.commission;
       this.type = getTransaction.data.data.type;
+      this.fr = getTransaction.data.data.fr;
       this.network = getTransaction.data.data.network;
       this.receiver = getTransaction.data.data.reciever;
       this.plan = getTransaction.data.data.plan;
