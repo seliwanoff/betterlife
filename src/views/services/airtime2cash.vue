@@ -8,319 +8,321 @@
       :color="color"
     />
     <Header2 @setHidden="getHidden" />
+    <div class="d-flex">
+      <SideBar />
 
-    <div class="rg-c">
-      <div :class="wideBody ? 'wideBody' : 'gc-x'">
-        <h2 class="hc-x">Airtime To cash</h2>
-        <TabNav
-          :tabs="['Transaction', 'Schedule']"
-          :selected="selected"
-          @selected="setSelected"
-        >
-          <Tab :isSelected="selected === 'Transaction'">
-            <main>
-              <div class="info-ipx-col">
-                <div style="width: 100%">
-                  <label for="search">
-                    From:
-                    <select name="" id="" v-model="day" @click="getDaysValue(day)">
-                      <option value="01">01</option>
-                      <option value="02">02</option>
-                      <option value="03">03</option>
-                      <option value="04">04</option>
-                      <option value="05">05</option>
-                      <option value="06">06</option>
-                      <option value="07">07</option>
-                      <option value="08">08</option>
-                      <option value="09">09</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                      <option value="13">13</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                      <option value="17">17</option>
-                      <option value="18">18</option>
-                      <option value="19">19</option>
-                      <option value="20">20</option>
-                      <option value="21">21</option>
-                      <option value="22">22</option>
-                      <option value="23">23</option>
-                      <option value="24">24</option>
-                      <option value="25">25</option>
-                      <option value="26">26</option>
-                      <option value="27">27</option>
-                      <option value="28">28</option>
-                      <option value="29">29</option>
-                      <option value="30">30</option>
-                      <option value="31">31</option>
-                    </select>
-                  </label>
-                  <label for="search">
-                    To:
-                    <select name="" id="" v-model="day" @click="getDaysValue(day)">
-                      <option value="01">01</option>
-                      <option value="02">02</option>
-                      <option value="03">03</option>
-                      <option value="04">04</option>
-                      <option value="05">05</option>
-                      <option value="06">06</option>
-                      <option value="07">07</option>
-                      <option value="08">08</option>
-                      <option value="09">09</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                      <option value="13">13</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                      <option value="17">17</option>
-                      <option value="18">18</option>
-                      <option value="19">19</option>
-                      <option value="20">20</option>
-                      <option value="21">21</option>
-                      <option value="22">22</option>
-                      <option value="23">23</option>
-                      <option value="24">24</option>
-                      <option value="25">25</option>
-                      <option value="26">26</option>
-                      <option value="27">27</option>
-                      <option value="28">28</option>
-                      <option value="29">29</option>
-                      <option value="30">30</option>
-                      <option value="31">31</option>
-                    </select>
-                  </label>
+      <div class="rg-c">
+        <div :class="wideBody ? 'wideBody' : 'gc-x'">
+          <h2 class="hc-x">Airtime To cash</h2>
+          <TabNav
+            :tabs="['Transaction', 'Schedule']"
+            :selected="selected"
+            @selected="setSelected"
+          >
+            <Tab :isSelected="selected === 'Transaction'">
+              <main>
+                <div class="info-ipx-col">
+                  <div style="width: 100%">
+                    <label for="search">
+                      From:
+                      <select name="" id="" v-model="day" @click="getDaysValue(day)">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                      </select>
+                    </label>
+                    <label for="search">
+                      To:
+                      <select name="" id="" v-model="day" @click="getDaysValue(day)">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                      </select>
+                    </label>
 
-                  <label for="search">
-                    Month:
-                    <select v-model="m" @change="getMonthNumber(m, item)">
-                      <option :value="index" v-for="(item, index) in months" :key="index">
-                        {{ item }}
-                      </option>
-                    </select>
-                  </label>
-                  <label for="search">
-                    Year:
-                    <select v-model="y" @click="getYearTransact(y)">
-                      <option :value="item" v-for="item in ys" :key="item.index">
-                        {{ item }}
-                      </option>
-                    </select>
-                  </label>
-                </div>
-                <div style="width: 100%">
-                  <div class="cvlp">
-                    <h3>{{ nm }} Total Transaction</h3>
-                    <br />
-                    <span>{{ totalpage }}</span>
+                    <label for="search">
+                      Month:
+                      <select v-model="m" @change="getMonthNumber(m, item)">
+                        <option
+                          :value="index"
+                          v-for="(item, index) in months"
+                          :key="index"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                    </label>
+                    <label for="search">
+                      Year:
+                      <select v-model="y" @click="getYearTransact(y)">
+                        <option :value="item" v-for="item in ys" :key="item.index">
+                          {{ item }}
+                        </option>
+                      </select>
+                    </label>
                   </div>
-                  <div class="cvlp">
-                    <h3>{{ nm }} Total Airtime Income</h3>
-                    <br />
-                    <span>&#8358;{{ Intl.NumberFormat().format(totalAmount) }}</span>
+                  <div style="width: 100%">
+                    <div class="cvlp">
+                      <h3>{{ nm }} Total Transaction</h3>
+                      <br />
+                      <span>{{ totalpage }}</span>
+                    </div>
+                    <div class="cvlp">
+                      <h3>{{ nm }} Total Airtime Income</h3>
+                      <br />
+                      <span>&#8358;{{ Intl.NumberFormat().format(totalAmount) }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="info-ipx-col">
-                <label for="search" style="width: auto !important">serach:</label>
-                <input
-                  type="search"
-                  style="outline: none; padding: 5px; height: auto !important"
-                  @keyup="usernameget"
-                  v-model="typedref"
-                />
-              </div>
-              <div class="info-ipx-col">
-                <label for="search">
-                  <button
-                    @click="downloadexcel('xls')"
-                    id="download"
-                    style="margin-right: 10px"
-                  >
-                    Export Excel
-                  </button>
-                  <button @click="download" id="download">Export PDF</button>
-                </label>
-              </div>
-              <div class="icl-tbl">
-                <table
-                  class="table-body"
-                  v-if="airtimeTransaction != 0"
-                  id="content"
-                  ref="exportable_table"
-                >
-                  <thead>
-                    <tr role="row">
-                      <th>Transaction ID</th>
-                      <th>Time</th>
-                      <th>Sender</th>
-                      <th>Receiver</th>
-                      <th>Network</th>
-                      <th>Bal Before</th>
-                      <th>Bal After</th>
-                      <th>Amount</th>
-
-                      <th>Status</th>
-                      <!--<th>Action</th>-->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="item in airtimeTransaction"
-                      :key="item.id"
-                      @click="getTransactionDetailUsers(item.user, item.ref)"
+                <div class="info-ipx-col">
+                  <label for="search" style="width: auto !important">serach:</label>
+                  <input
+                    type="search"
+                    style="outline: none; padding: 5px; height: auto !important"
+                    @keyup="usernameget"
+                    v-model="typedref"
+                  />
+                </div>
+                <div class="info-ipx-col">
+                  <label for="search">
+                    <button
+                      @click="downloadexcel('xls')"
+                      id="download"
+                      style="margin-right: 10px"
                     >
-                      <td>{{ item.ref }}</td>
-                      <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
-                      <td>{{ item.reciever }}</td>
-                      <td>{{ item.reciever }}</td>
+                      Export Excel
+                    </button>
+                    <button @click="download" id="download">Export PDF</button>
+                  </label>
+                </div>
+                <div class="icl-tbl">
+                  <table
+                    class="table-body"
+                    v-if="airtimeTransaction != 0"
+                    id="content"
+                    ref="exportable_table"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th>Transaction ID</th>
+                        <th>Time</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Network</th>
+                        <th>Bal Before</th>
+                        <th>Bal After</th>
+                        <th>Amount</th>
 
-                      <td v-if="item.name == 1 && item.name != 'succesfull'">MTN</td>
-                      <td v-else-if="item.name == 2 && item.name != 'succesfull'">
-                        Airtel
-                      </td>
-                      <td v-else-if="item.name == 3 && item.name != 'succesfull'">
-                        9mobile
-                      </td>
-                      <td v-else-if="item.name == 4 && item.name != 'succesfull'">GLO</td>
-                      <td
-                        v-else-if="
-                          item.name != 1 &&
-                          item.name != 2 &&
-                          item.name != 3 &&
-                          item.name != 4 &&
-                          item.name != 'succesfull'
-                        "
+                        <th>Status</th>
+                        <!--<th>Action</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="item in airtimeTransaction"
+                        :key="item.id"
+                        @click="getTransactionDetailUsers(item.user, item.ref)"
                       >
-                        {{ item.name }}
-                      </td>
+                        <td>{{ item.ref }}</td>
+                        <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
+                        <td>{{ item.reciever }}</td>
+                        <td>{{ item.reciever }}</td>
 
-                      <td v-if="item.network == 1 && item.name == 'succesfull'">MTN</td>
-                      <td v-else-if="item.network == 2 && item.name == 'succesfull'">
-                        Airtel
-                      </td>
-                      <td v-else-if="item.network == 3 && item.name == 'succesfull'">
-                        9mobile
-                      </td>
-                      <td v-else-if="item.network == 4 && item.name == 'succesfull'">
-                        GLO
-                      </td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
+                        <td v-if="item.name == 1 && item.name != 'succesfull'">MTN</td>
+                        <td v-else-if="item.name == 2 && item.name != 'succesfull'">
+                          Airtel
+                        </td>
+                        <td v-else-if="item.name == 3 && item.name != 'succesfull'">
+                          9mobile
+                        </td>
+                        <td v-else-if="item.name == 4 && item.name != 'succesfull'">
+                          GLO
+                        </td>
+                        <td
+                          v-else-if="
+                            item.name != 1 &&
+                            item.name != 2 &&
+                            item.name != 3 &&
+                            item.name != 4 &&
+                            item.name != 'succesfull'
+                          "
+                        >
+                          {{ item.name }}
+                        </td>
 
-                      <td v-if="item.status == 1">Under Review</td>
-                      <td v-if="item.status == 2">Settled</td>
+                        <td v-if="item.network == 1 && item.name == 'succesfull'">MTN</td>
+                        <td v-else-if="item.network == 2 && item.name == 'succesfull'">
+                          Airtel
+                        </td>
+                        <td v-else-if="item.network == 3 && item.name == 'succesfull'">
+                          9mobile
+                        </td>
+                        <td v-else-if="item.network == 4 && item.name == 'succesfull'">
+                          GLO
+                        </td>
+                        <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
+                        <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
+                        <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
 
-                      <td v-if="item.status == 0">Failed</td>
-                      <!---
+                        <td v-if="item.status == 1">Under Review</td>
+                        <td v-if="item.status == 2">Settled</td>
+
+                        <td v-if="item.status == 0">Failed</td>
+                        <!---
                         <td>
                           <button @click="getEachUserDetails" class="btn-details">
                             Details
                           </button>
                         </td>
                         -->
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <button @click="prev" class="pg-btn" :disabled="pageNumber <= 1">
-                        prev
-                      </button>
-                      <span v-for="(item, index) in new Array(page)" :key="index">
-                        <button
-                          :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                          @click="pageNumberget(index)"
-                        >
-                          {{ index + 1 }}
-                        </button>
-                      </span>
-                      <button @click="next" class="pg-btn" :disabled="pageNumber >= page">
-                        next
-                      </button>
-                    </tr>
-                  </tfoot>
-                </table>
-                <div v-else style="width: 100%; text-align: center; font-weight: bold">
-                  No Transaction found
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <v-pagination
+                        v-model="per_page"
+                        :pages="page"
+                        :range-size="1"
+                        active-color="#DCEDFF"
+                        @update:modelValue="pageNumberget"
+                      />
+                    </tfoot>
+                  </table>
+                  <div v-else style="width: 100%; text-align: center; font-weight: bold">
+                    No Transaction found
+                  </div>
                 </div>
-              </div>
-            </main>
-          </Tab>
-          <Tab :isSelected="selected === 'Schedule'">
-            <main id="content">
-              <div class="icl-tbl">
-                <table class="table-body" v-if="airtimeSchedule != 0">
-                  <thead>
-                    <tr role="row">
-                      <th>Transaction ID</th>
-                      <th>Time</th>
-                      <th>User</th>
-                      <th>Network</th>
+              </main>
+            </Tab>
+            <Tab :isSelected="selected === 'Schedule'">
+              <main id="content">
+                <div class="icl-tbl">
+                  <div v-if="airtimeSchedule != 0">
+                    <table class="table-body">
+                      <thead>
+                        <tr role="row">
+                          <th>Transaction ID</th>
+                          <th>Time</th>
+                          <th>User</th>
+                          <th>Network</th>
 
-                      <th>Amount</th>
-                      <th>Source</th>
-                      <th>Status</th>
-                      <!-- <th>Action</th>-->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in airtimeSchedule" :key="item.id">
-                      <td>{{ item.ref }}</td>
-                      <td>{{ moment(item.updated_at).format("d-m-yyyy") }}</td>
-                      <td>{{ item.reciever }}</td>
-                      <td>{{ item.name }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
-                      <td>{{ item.m }}</td>
-                      <td v-if="item.status == 1">Completed</td>
-                      <td v-if="item.status == 0">Failed</td>
-                      <!--<td>
+                          <th>Amount</th>
+                          <th>Source</th>
+                          <th>Status</th>
+                          <!-- <th>Action</th>-->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item in airtimeSchedule" :key="item.id">
+                          <td>{{ item.ref }}</td>
+                          <td>{{ moment(item.updated_at).format("d-m-yyyy") }}</td>
+                          <td>{{ item.reciever }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
+                          <td>{{ item.m }}</td>
+                          <td v-if="item.status == 1">Completed</td>
+                          <td v-if="item.status == 0">Failed</td>
+                          <!--<td>
                           <button @click="getEachUserDetails" class="btn-details">
                             Details
                           </button>
   
                         </td>
-                        -->
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <button @click="prevs" class="pg-btn" :disabled="pageNumber <= 1">
-                        prev
-                      </button>
-                      <span v-for="(item, index) in new Array(page)" :key="index">
-                        <button
-                          :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                          @click="pageNumbergets(index)"
-                        >
-                          {{ index + 1 }}
+                        --></tr>
+                      </tbody>
+                    </table>
+                    <div>
+                      <div>
+                        <button @click="prevs" class="pg-btn" :disabled="pageNumber <= 1">
+                          prev
                         </button>
-                      </span>
-                      <button
-                        @click="nexts"
-                        class="pg-btn"
-                        :disabled="pageNumber >= page"
-                      >
-                        next
-                      </button>
-                    </tr>
-                  </tfoot>
-                </table>
-                <div v-else style="width: 100%; text-align: center; font-weight: bold">
-                  No Transaction found
+                        <span v-for="(item, index) in new Array(page)" :key="index">
+                          <button
+                            :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
+                            @click="pageNumbergets(index)"
+                          >
+                            {{ index + 1 }}
+                          </button>
+                        </span>
+                        <button
+                          @click="nexts"
+                          class="pg-btn"
+                          :disabled="pageNumber >= page"
+                        >
+                          next
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else style="width: 100%; text-align: center; font-weight: bold">
+                    No Transaction found
+                  </div>
                 </div>
-              </div>
-            </main>
-          </Tab>
-        </TabNav>
+              </main>
+            </Tab>
+          </TabNav>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import SideBar from "@/components/siderbar2.vue";
 import Header2 from "../../components/header.vue";
 import axios from "axios";
 import Loading from "vue-loading-overlay";
@@ -331,10 +333,12 @@ import moment from "moment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx/xlsx.mjs";
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 export default {
   name: "Bill -app",
-  components: { Header2, Loading, TabNav, Tab },
+  components: { Header2, Loading, TabNav, Tab, VPagination, SideBar },
   data() {
     return {
       id: "",
@@ -424,7 +428,7 @@ export default {
       this.nm = this.months[m];
 
       if (this.m.toString().length == 2) {
-        this.am = m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(m + 1);
       }
@@ -461,7 +465,7 @@ export default {
     },
     async getDaysValue(day) {
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -491,7 +495,7 @@ export default {
     },
     async getYearTransact(year) {
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -552,17 +556,17 @@ export default {
     },
     async pageNumberget(newPagenumber) {
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
 
       if (this.day) {
-        this.pageNumber = newPagenumber + 1;
+        this.pageNumber = newPagenumber;
         this.$router.push({
           path: this.$route.path,
           query: {
-            pageNumber: newPagenumber + 1,
+            pageNumber: newPagenumber,
           },
         });
 
@@ -619,7 +623,7 @@ export default {
       });
       this.pageNumber = this.pageNumber - 1;
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -653,7 +657,7 @@ export default {
       });
       this.pageNumber = this.pageNumber + 1;
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -679,11 +683,11 @@ export default {
     },
 
     async pageNumbergets(newPagenumber) {
-      this.pageNumber = newPagenumber + 1;
+      this.pageNumber = newPagenumber;
       this.$router.push({
         path: this.$route.path,
         query: {
-          pageNumber: newPagenumber + 1,
+          pageNumber: newPagenumber,
         },
       });
 
@@ -800,7 +804,7 @@ export default {
     //this.$router.push('/admin/login')
     //}
     if (this.m.toString().length == 2) {
-      this.am = this.m;
+      this.am = parseInt(this.m + 1);
     } else {
       this.am = "0" + parseInt(this.m + 1);
     }

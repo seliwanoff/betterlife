@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import Sidebar from "../components/sidebar.vue";
+import Sidebar from "@/components/sidebar.vue";
 //import axios from 'axios'
 export default {
   name: "Header-App",

@@ -205,6 +205,20 @@
                       <option :value="1">CARDRI</option>
                     </select>
                   </div>
+                  <div class="ml-xf tcg-lf">
+                    <label for="email"> Airtel Data API</label> <br />
+                    <select name="" id="" v-model="airtelapi">
+                      <option :value="1">SME PLUG</option>
+                      <option :value="2">CARDRI</option>
+                    </select>
+                  </div>
+                  <div class="ml-xf tcg-lf">
+                    <label for="email"> Glo Data API</label> <br />
+                    <select name="" id="" v-model="gloapi">
+                      <option :value="1">SME PLUG</option>
+                      <option :value="2">CARDRI</option>
+                    </select>
+                  </div>
 
                   <div class="ml-xf">
                     <button :disabled="isDisabled" style="margin-top: 10px !important">
@@ -318,6 +332,8 @@ export default {
       cashglo: "",
       cashmtn: "",
       airtimetocash: 0,
+      gloapi: "",
+      airtelapi: "",
     };
   },
 
@@ -330,7 +346,6 @@ export default {
       const response = await axios.get(
         `${process.env.VUE_APP_BASE_URL}api/getmanagement`
       );
-      console.log(response);
       this.ndata = response.data.data.ndata;
       this.mdata = response.data.data.mdata;
       this.nairtime = response.data.data.nairtime;
@@ -351,6 +366,8 @@ export default {
       this.cashglo = response.data.data.cashglo;
       this.airtime = response.data.data.airtime;
       this.airtimetocash = response.data.data.airimetocashstatus;
+      this.gloapi = response.data.data.gloapi;
+      this.airtelapi = response.data.data.airtelapi;
 
       this.cbill = response.data.data.cbill;
     } catch (e) {
@@ -441,6 +458,8 @@ export default {
         cashglo: this.cashglo,
         airtime: this.airtime,
         airimetocashstatus: this.airtimetocash,
+        airtelapi: this.airtelapi,
+        gloapi: this.gloapi,
       };
       console.log(data);
       try {

@@ -1,6 +1,8 @@
 <template>
-  <div style="max-height: 800px">
-    <router-view></router-view>
+  <div class="container-xxl">
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -70,5 +72,8 @@ body {
 #app {
   max-width: 1519.2px;
   margin: 0px auto;
+}
+input {
+  font-size: 14px;
 }
 </style>

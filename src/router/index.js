@@ -23,6 +23,14 @@ import Refer from '../views/refer/refer.vue'
 import Refer_details from '../views/refer/refer_details.vue'
 import Network from '../views/settings/network.vue'
 import Reset from '../views/forget/reset.vue'
+import MTN from '../views/plan/mtn.vue'
+import Airtel from '../views/plan/airtel.vue'
+import Mobile from '../views/plan/mobile.vue'
+import GLO from '../views/plan/glo.vue'
+import DSTV from '../views/tv/dstv.vue'
+import GOTV from '../views/tv/gotv.vue'
+import Startimes from '../views/tv/startimes.vue'
+import Showmax from '../views/tv/showmax.vue'
 
 import ResetPassword from '../views/forget/resetpassword.vue'
 import Merchant from '../views/services/merchantupgrade.vue'
@@ -72,6 +80,86 @@ const routes = [{
         path: '/service/data',
         name: 'Better Life | Data Transaction',
         component: Data
+    },
+    {
+        path: '/plan/mtn',
+        name: 'Tapit | MTN settings',
+        component: MTN
+    },
+    {
+        path: '/plan/airtel',
+        name: 'Tapit | Airtel settings',
+        component: Airtel
+    },
+    {
+        path: '/plan/mobile',
+        name: 'Tapit | mobile settings',
+        component: Mobile
+    },
+    {
+        path: '/tv/dstv',
+        name: 'Tapit | DSTV settings',
+        component: DSTV
+    },
+    {
+        path: '/tv/gotv',
+        name: 'Tapit | GOTV settings',
+        component: GOTV
+    },
+    {
+        path: '/tv/startimes',
+        name: 'Tapit | Startimes settings',
+        component: Startimes
+    },
+    {
+        path: '/tv/showmax',
+        name: 'Tapit | Showmax settings',
+        component: Showmax
+    },
+    {
+        path: '/plan/glo',
+        name: 'Tapit | GLO settings',
+        component: GLO
+    },
+    {
+        path: '/plan/mtn',
+        name: 'Tapit | MTN settings',
+        component: MTN
+    },
+    {
+        path: '/plan/airtel',
+        name: 'Tapit | Airtel settings',
+        component: Airtel
+    },
+    {
+        path: '/plan/mobile',
+        name: 'Tapit | mobile settings',
+        component: Mobile
+    },
+    {
+        path: '/tv/dstv',
+        name: 'Tapit | DSTV settings',
+        component: DSTV
+    },
+    {
+        path: '/tv/gotv',
+        name: 'Tapit | GOTV settings',
+        component: GOTV
+    },
+    {
+        path: '/tv/startimes',
+        name: 'Tapit | Startimes settings',
+        component: Startimes
+    },
+    {
+        path: '/tv/showmax',
+        name: 'Tapit | Showmax settings',
+        component: Showmax
+    },
+    {
+        path: '/plan/glo',
+        name: 'Tapit | GLO settings',
+        component: GLO
     },
     {
         path: '/service/fund-deposit',

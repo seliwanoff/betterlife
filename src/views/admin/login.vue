@@ -7,10 +7,37 @@
         <h2 class="hc-x">Admin Sign In</h2>
         <main>
           <Message :status="status" :message="message" />
+          <form @submit.prevent="handleSubmit">
+            <div class="form-group my-3">
+              <input
+                type="id"
+                placeholder="Enter your Email or Username"
+                v-model="id"
+                required
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="form-group my-3">
+              <input
+                type="password"
+                placeholder="********"
+                v-model="password"
+                required
+                autocomplete="off"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+
+            <button class="btn btn-primary">Submit</button>
+          </form>
+          <!--
+</form>
 
           <form @submit.prevent="handleSubmit">
             <div class="ml-xf">
-              <label for="email">Email or Username</label> <br />
               <input
                 type="id"
                 placeholder="Enter your Email or Username"
@@ -20,7 +47,6 @@
             </div>
 
             <div class="ml-xf">
-              <label for="number">Password</label>
               <input
                 type="password"
                 placeholder="********"
@@ -35,11 +61,12 @@
               </span>
             </div>
             <div class="ml-xf">
-              <button :disabled="isDisabled" style="margin-top: 10px !important">
+              <button :disabled="isDisabled" class="btn btn-primary">
                 {{ btnText }}
               </button>
             </div>
           </form>
+          -->
         </main>
       </div>
     </div>
@@ -120,13 +147,13 @@ export default {
 }
 .rg-c .gc-x {
   margin: 50px;
-  max-width: 400px;
+  max-width: 350px;
   width: 100%;
   margin: 100px auto;
   background: #fff;
   box-shadow: 0px 1px 15px 1px rgb(62 57 107 / 7%);
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 @media screen and (max-width: 490px) {
   .rg-c .gc-x {
@@ -139,9 +166,8 @@ export default {
   }
 }
 .hc-x {
-  font-size: 1.2rem;
-  padding: 10px;
-  margin: 0px;
+  font-size: 1rem;
+
   color: #222;
   font-weight: 700;
 }
@@ -167,20 +193,17 @@ label {
 input {
   outline: none;
   box-sizing: border-box;
-  height: 50px;
-  border-radius: 10px;
+
+  border-radius: 5px;
   border: 1px solid #ccc;
-  width: 96%;
   padding: 10px;
 }
 button {
-  padding: 10px;
   color: #fff;
-  font-size: 1rem;
   background: #0a1aa8;
   border: 1px solid #0a1aa8;
-  border-radius: 10px;
-  width: 96%;
+  border-radius: 5px;
+
   box-shadow: 0px 1px 15px 1px rgb(62 57 107 / 7%);
 }
 input::-webkit-input-placeholder {
@@ -211,7 +234,6 @@ input::-webkit-input-placeholder {
   }
 }
 .ml-xf {
-  width: 100%;
   padding: 10px;
   padding-top: 0px !important;
   padding-bottom: 0px !important;

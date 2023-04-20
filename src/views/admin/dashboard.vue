@@ -634,114 +634,107 @@
       <div :class="hidemethis ? 'gc-x' : 'wideBody'">
         <div class="cards-info">
           <div class="cards">
-            <img src="https://img.icons8.com/ios-filled/35/FFFFFF/user.png" />
-            <h2>Total User</h2>
-            <span>{{ totalpage }}</span>
+            <img src="https://img.icons8.com/ios-filled/20/FFFFFF/user.png" />
+            <h2 style="font-size: 12px">Total User</h2>
+            <span style="font-size: 12px">{{ totalpage }}</span>
           </div>
           <div class="cards">
-            <img src="https://img.icons8.com/ios-filled/35/FFFFFF/briefcase.png" />
-            <h2>Total wallet</h2>
-            <span>&#8358;{{ Intl.NumberFormat().format(totalwallet) }}</span>
+            <img src="https://img.icons8.com/ios-filled/20/FFFFFF/briefcase.png" />
+            <h2 style="font-size: 12px">Total wallet</h2>
+            <span style="font-size: 12px"
+              >&#8358;{{ Intl.NumberFormat().format(totalwallet) }}</span
+            >
           </div>
           <div class="cards">
-            <img src="https://img.icons8.com/ios-filled/35/FFFFFF/briefcase.png" />
-            <h2>{{ nm.slice(0, 4) }} Transacton</h2>
-            <span>{{ getTotal }}</span>
+            <img src="https://img.icons8.com/ios-filled/20/FFFFFF/briefcase.png" />
+            <h2 style="font-size: 12px">{{ nm.slice(0, 3) }} Transacton</h2>
+            <span style="font-size: 12px">{{ getTotal }}</span>
           </div>
           <div class="cards">
-            <img src="https://img.icons8.com/dotty/35/FFFFFF/get-revenue--v3.png" />
-            <h2 style="overflow: hidden">{{ nm.slice(0, 4) }} Income</h2>
-            <span style="overflow: hidden"
+            <img src="https://img.icons8.com/dotty/20/FFFFFF/get-revenue--v3.png" />
+            <h2 style="overflow: hidden; font-size: 12px">{{ nm.slice(0, 3) }} Income</h2>
+            <span style="overflow: hidden; font-size: 12px"
               >&#8358;{{ Intl.NumberFormat().format(totalAmount) }}</span
             >
           </div>
         </div>
-        <h2 class="hc-x">User Information</h2>
+        <h2 class="hc-x" style="font-size: 12px">User Information</h2>
         <main>
           <div style="max-width: 300px; width: 100%; margin: 0px auto">
             <canvas id="myChart" width="50" height="50"></canvas>
           </div>
           <div class="info-ipx-col">
             <label for="search">serach:</label>
-            <input
-              type="search"
-              style="outline: none; padding: 4px"
-              @keyup="usernameget"
-              v-model="typedusername"
-            />
+            <input type="search" style="outline: none; padding: 4px" v-model="search" />
           </div>
           <div class="info-ipx-col">
             <label for="search">
               <button
                 @click="downloadexcel('xls')"
                 id="download"
-                style="margin-right: 10px"
+                style="margin-right: 10px; font-size: 12px !important"
               >
                 Export Excel
               </button>
-              <button @click="download" id="download">Export PDF</button>
+              <button @click="download" id="download" style="font-size: 12px !important">
+                Export PDF
+              </button>
             </label>
           </div>
 
           <div class="icl-tbl">
-            <table
-              class="table-body"
-              v-if="allUsers != 0"
-              id="content"
-              ref="exportable_table"
-            >
-              <thead>
-                <tr role="row">
-                  <th>Username</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+            <div v-if="filterUser != 0">
+              <table class="table-body" id="content" ref="exportable_table">
+                <thead>
+                  <tr role="row" class="head-body">
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
 
-                  <th>Phone Number</th>
-                  <th>Balance</th>
-                  <th>Source</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in allUsers" :key="item.id">
-                  <td style="max-width: 120px">{{ item.username }}</td>
-                  <td>{{ item.fname }}</td>
-                  <td>{{ item.lname }}</td>
-
-                  <td>{{ item.phone }}</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.balance) }}</td>
-                  <td>{{ item.m }}</td>
-                  <td v-if="item.type == 1">Normal</td>
-                  <td v-if="item.type == 2">Merchant</td>
-                  <td>
-                    <button
-                      @click="getUsersByUsername(item.username)"
-                      class="btn-details"
-                    >
-                      Details
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-
-              <tfoot>
-                <button @click="prev" class="pg-btn" :disabled="pageNumber <= 1">
-                  prev
-                </button>
-                <span v-for="(item, index) in new Array(page)" :key="index">
-                  <button
-                    :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                    @click="pageNumberget(index)"
+                    <th>Phone Number</th>
+                    <th>Balance</th>
+                    <th>commission</th>
+                    <th>Source</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="item in this.search == '' ? allUsers : filterUser"
+                    :key="item.id"
                   >
-                    {{ index + 1 }}
-                  </button>
-                </span>
-                <button @click="next" class="pg-btn" :disabled="pageNumber >= page">
-                  next
-                </button>
-              </tfoot>
-            </table>
+                    <td style="max-width: 120px">{{ item.username }}</td>
+                    <td>{{ item.fname }}</td>
+                    <td>{{ item.lname }}</td>
+
+                    <td>{{ item.phone }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.balance) }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.commission) }}</td>
+                    <td>{{ item.m }}</td>
+                    <td v-if="item.type == 1">Normal</td>
+                    <td v-if="item.type == 2">Merchant</td>
+                    <td>
+                      <button
+                        @click="getUsersByUsername(item.username)"
+                        class="btn-details"
+                      >
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="display: flex; justify-content: center">
+                <v-pagination
+                  v-model="per_page"
+                  :pages="page"
+                  :range-size="1"
+                  active-color="#DCEDFF"
+                  @update:modelValue="pageNumberget"
+                />
+              </div>
+            </div>
             <div v-else style="width: 100%; text-align: center; font-weight: bold">
               No User found
             </div>
@@ -760,10 +753,12 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Chart from "chart.js/auto";
 import * as XLSX from "xlsx/xlsx.mjs";
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 export default {
   name: "Bill -app",
-  components: { Loading },
+  components: { Loading, VPagination },
   data() {
     return {
       id: "",
@@ -788,6 +783,7 @@ export default {
       allUsers: [],
       pageNumber: 1,
       per_page: "",
+      search: "",
       per_pages: "",
       total: "",
       page: "",
@@ -812,6 +808,7 @@ export default {
       width: document.documentElement.clientWidth,
       height: document.documentElement.clientHeight,
       totalAmount: 0,
+      com: "",
       y: "",
       m: "",
       nm: "",
@@ -829,6 +826,19 @@ export default {
       cable: 0,
       typedusername: "",
     };
+  },
+  computed: {
+    filterUser: function () {
+      return this.allUsers.filter((item) => {
+        return (
+          item.username.match(this.search) ||
+          item.phone.match(this.search) ||
+          item.email.match(this.search) ||
+          item.fname.match(this.search) ||
+          item.lname.match(this.search)
+        );
+      });
+    },
   },
   methods: {
     async usernameget() {
@@ -882,7 +892,7 @@ export default {
         this.$router.push("/");
       } catch (e) {
         if (e.response.status === 401) {
-          this.$router.push("/panel/login");
+          this.$router.push("/");
           localStorage.removeItem("admin");
         }
       }
@@ -904,11 +914,11 @@ export default {
       this.showsce = !this.showsce;
     },
     async pageNumberget(newPagenumber) {
-      this.pageNumber = newPagenumber + 1;
+      this.pageNumber = newPagenumber;
       this.$router.push({
         path: this.$route.path,
         query: {
-          pageNumber: newPagenumber + 1,
+          pageNumber: newPagenumber,
         },
       });
 
@@ -924,7 +934,7 @@ export default {
         this.allUsers = getUsers.data.data.data;
       } catch (e) {
         if (e.response.status === 401) {
-          this.$router.push("/panel/login");
+          this.$router.push("/");
           localStorage.removeItem("admin");
         }
       }
@@ -999,7 +1009,7 @@ export default {
             },
           }
         );
-
+        console.log(getUsers);
         this.fname = getUsers.data.data.fname;
         this.lname = getUsers.data.data.lname;
         this.email = getUsers.data.data.email;
@@ -1008,6 +1018,7 @@ export default {
         this.bankname = getUsers.data.data.bankname;
         this.type = getUsers.data.data.type;
         this.balance = getUsers.data.data.balance;
+        this.com = getUsers.data.data.commission;
         this.username = getUsers.data.data.username;
         this.status = getUsers.data.data.status;
         this.id = getUsers.data.data.id;
@@ -1112,12 +1123,12 @@ export default {
 
       this.allUsers = getUsers.data.data.data;
       this.totalpage = getUsers.data.data.total;
-
+      console.log(this.allUsers);
       this.per_page = getUsers.data.data.per_page;
-      this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
+      this.page = Math.ceil(parseInt(this.totalpage / this.per_page));
     } catch (e) {
       if (e.response.status === 401) {
-        this.$router.push("/panel/login");
+        this.$router.push("/");
         localStorage.removeItem("admin");
       }
     }
@@ -1134,7 +1145,7 @@ export default {
       this.totalwallet = totalwallet.data.totalbalance;
     } catch (e) {
       if (e.response.status === 401) {
-        this.$router.push("/panel/login");
+        this.$router.push("/");
         localStorage.removeItem("admin");
       }
     }
@@ -1354,7 +1365,14 @@ main {
   color: #000 !important;
   padding: 10px;
 }
-.h4cl h4 {
+.head-body {
+  background: #ccc;
+  font-size: 12px;
+}
+.head-body th {
+  font-size: 12px !important;
+}
+.head-body .h4cl h4 {
   color: #000 !important;
   font-weight: bold;
 }
@@ -1393,7 +1411,7 @@ label input {
 }
 .table-body {
   padding: 10px;
-  border: 1px solid #ccc;
+
   border-spacing: 0px;
   font-weight: 500;
   width: 100%;
@@ -1403,10 +1421,13 @@ label input {
   font-size: 1rem;
   font-weight: 800;
   border-width: 1px;
-  border: 1px solid rgb(236, 230, 230);
+
   padding: 0.35rem 0.9rem;
   word-spacing: 1px;
   border-spacing: 0px;
+}
+tr:nth-child(even) {
+  background: #ccc;
 }
 tbody tr td {
   font-size: 0.8rem;
@@ -1414,13 +1435,14 @@ tbody tr td {
   border-width: 1px;
   text-align: center;
   padding: 0.35rem 0.9rem;
-  border: 1px solid rgb(236, 230, 230);
+
   max-width: 50px !important;
 }
 @media screen and (max-width: 499px) {
   .table-body thead tr th {
     font-size: 0.8rem;
     min-width: 120px;
+    font-size: 12px;
   }
   tbody tr td {
     font-size: 0.8rem;
@@ -1538,7 +1560,7 @@ img {
   border: 1px solid #0a1aa8;
   color: #fff;
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 12px !important;
   cursor: pointer;
 }
 .modal {
@@ -1548,11 +1570,11 @@ img {
   width: 100%;
 }
 .scnd-modal {
-  max-width: 500px;
+  max-width: 350px;
   background: #fff;
   width: 100%;
   box-shadow: 0px 1px 15px 1px rgb(62 57 107 / 7%);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 10px;
   z-index: 100000;
   margin: 100px auto;
@@ -1717,6 +1739,7 @@ i {
 }
 .fa {
   cursor: pointer;
+  font-size: 10px !important;
 }
 .pic-nl {
   height: 40px;

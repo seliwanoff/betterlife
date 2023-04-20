@@ -61,7 +61,7 @@
                 </select>
               </label>
               <label for="search">
-                Year:
+                Years:
                 <select v-model="y" @click="getYearTransact(y)">
                   <option :value="item" v-for="item in ys" :key="item.index">
                     {{ item }}
@@ -84,59 +84,55 @@
           </div>
 
           <div class="icl-tbl">
-            <table class="table-body" v-if="allUsers != 0">
-              <thead>
-                <tr role="row">
-                  <th>Transaction ID</th>
-                  <th>Time</th>
-                  <th>Receiver</th>
-                  <th>Service</th>
-                  <th>Bal Before</th>
-                  <th>Bal After</th>
-                  <th>Amount</th>
-                  <th>Source</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in allUsers" :key="item.id">
-                  <td>{{ item.ref }}</td>
-                  <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
-                  <td>{{ item.reciever }}</td>
-                  <td v-if="item.type == 1">AIRTIME</td>
-                  <td v-else-if="item.type == 2">Data Subscription</td>
-                  <td v-else-if="item.type == 6">Fund Deposit</td>
-                  <td v-else-if="item.type == 4">Transfer</td>
-                  <td v-else-if="item.type == 10">Merchant Upgrade</td>
-                  <td v-else-if="item.type == 3">Cable</td>
-                  <td v-else-if="item.type == 5">Bill</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
-                  <td>{{ item.m }}</td>
-                  <td v-if="item.status == 1">Completed</td>
-                  <td v-if="item.status == 0">Failed</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <button @click="prev" class="pg-btn" :disabled="pageNumber <= 1">
-                    prev
-                  </button>
-                  <span v-for="(item, index) in new Array(page)" :key="index">
-                    <button
-                      :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                      @click="pageNumberget(index)"
-                    >
-                      {{ index + 1 }}
-                    </button>
-                  </span>
-                  <button @click="next" class="pg-btn" :disabled="pageNumber >= page">
-                    next
-                  </button>
-                </tr>
-              </tfoot>
-            </table>
+            <div v-if="allUsers != 0">
+              <table class="table-body" style="width: 100%">
+                <thead>
+                  <tr role="row">
+                    <th style="max-width: 120px">Transaction ID</th>
+                    <th>Time</th>
+                    <th>Receiver</th>
+                    <th>Service</th>
+                    <th>Bal Before</th>
+                    <th>Bal After</th>
+                    <th>Amount</th>
+                    <th>Source</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in allUsers" :key="item.id">
+                    <td style="max-width: 120px">{{ item.ref }}</td>
+                    <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
+                    <td>{{ item.reciever }}</td>
+                    <td v-if="item.type == 1">AIRTIME</td>
+                    <td v-else-if="item.type == 2">Data Subscription</td>
+                    <td v-else-if="item.type == 6">Fund Deposit</td>
+                    <td v-else-if="item.type == 4">Transfer</td>
+                    <td v-else-if="item.type == 10">Merchant Upgrade</td>
+                    <td v-else-if="item.type == 3">Cable</td>
+                    <td v-else-if="item.type == 5">Bill</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
+                    <td>{{ item.m }}</td>
+                    <td v-if="item.status == 1">Completed</td>
+                    <td v-if="item.status == 0">Failed</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <div>
+                  <v-pagination
+                    v-model="per_page"
+                    :pages="page"
+                    :range-size="1"
+                    active-color="#DCEDFF"
+                    @update:modelValue="pageNumberget"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div v-else style="width: 100%; text-align: center; font-weight: bold">
               No Transaction found
             </div>
@@ -152,10 +148,12 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import moment from "moment";
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 export default {
   name: "transfer -app",
-  components: { Header2, Loading },
+  components: { Header2, Loading, VPagination },
   data() {
     return {
       password: "",
@@ -215,7 +213,7 @@ export default {
       this.nm = this.months[m];
 
       if (this.m.toString().length == 2) {
-        this.am = m;
+        this.am = parseInt(m + 1);
       } else {
         this.am = "0" + parseInt(m + 1);
       }
@@ -234,12 +232,15 @@ export default {
         this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getDaysValue(day) {
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -261,12 +262,15 @@ export default {
         this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async getYearTransact(year) {
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -287,7 +291,10 @@ export default {
           this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       } else {
         try {
@@ -306,7 +313,10 @@ export default {
           this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       }
     },
@@ -318,17 +328,17 @@ export default {
     },
     async pageNumberget(newPagenumber) {
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
 
       if (this.day) {
-        this.pageNumber = newPagenumber + 1;
+        this.pageNumber = newPagenumber;
         this.$router.push({
           path: this.$route.path,
           query: {
-            pageNumber: newPagenumber + 1,
+            pageNumber: newPagenumber,
           },
         });
 
@@ -347,7 +357,10 @@ export default {
           // this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       } else {
         try {
@@ -366,7 +379,10 @@ export default {
 
           this.totalAmount = getUsers.data.total;
         } catch (e) {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.$router.push("/");
+            localStorage.removeItem("admin");
+          }
         }
       }
     },
@@ -379,7 +395,7 @@ export default {
       });
       this.pageNumber = this.pageNumber - 1;
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -396,7 +412,10 @@ export default {
         this.allUsers = getUsers.data.data.data;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
     async next() {
@@ -408,7 +427,7 @@ export default {
       });
       this.pageNumber = this.pageNumber + 1;
       if (this.m.toString().length == 2) {
-        this.am = this.m;
+        this.am = parseInt(this.m + 1);
       } else {
         this.am = "0" + parseInt(this.m + 1);
       }
@@ -424,7 +443,10 @@ export default {
         this.allUsers = getUsers.data.data.data;
         this.totalAmount = getUsers.data.total;
       } catch (e) {
-        console.log(e);
+        if (e.response.status === 401) {
+          this.$router.push("/");
+          localStorage.removeItem("admin");
+        }
       }
     },
   },
@@ -466,13 +488,13 @@ export default {
     //this.$router.push('/admin/login')
     //}
     if (this.m.toString().length == 2) {
-      this.am = this.m;
+      this.am = parseInt(this.m + 1);
     } else {
       this.am = "0" + parseInt(this.m + 1);
     }
     try {
       const getUsers = await axios.get(
-        `${process.env.VUE_APP_BASE_URL}api/gettransactionbyuser?user=${this.id}&month=${this.am}&year=${this.y}`,
+        `${process.env.VUE_APP_BASE_URL}api/gettransactionbyuser?user=${this.id}`,
         {
           headers: {
             Authorization: "Bearer " + this.token,
@@ -485,7 +507,10 @@ export default {
       this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
       this.totalAmount = getUsers.data.total;
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 401) {
+        this.$router.push("/");
+        localStorage.removeItem("admin");
+      }
     }
     this.isLoading = false;
   },
@@ -607,7 +632,6 @@ label input {
 }
 .table-body {
   padding: 10px;
-  border: 1px solid #ccc;
   border-spacing: 0px;
   font-weight: 500;
   width: 100%;
@@ -617,7 +641,6 @@ label input {
   font-size: 1rem;
   font-weight: 800;
   border-width: 1px;
-  border: 1px solid rgb(236, 230, 230);
   padding: 0.35rem 0.9rem;
   word-spacing: 1px;
   border-spacing: 0px;
@@ -628,7 +651,10 @@ tbody tr td {
   border-width: 1px;
   text-align: center;
   padding: 0.35rem 0.9rem;
-  border: 1px solid rgb(236, 230, 230);
+  max-width: 90px !important;
+}
+tr:nth-child(even) {
+  background: #ccc;
 }
 @media screen and (max-width: 499px) {
   .table-body thead tr th {

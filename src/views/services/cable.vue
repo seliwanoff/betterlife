@@ -90,7 +90,7 @@
 
               <label for="search">
                 Month:
-                <select v-model="m" @change="getMonthNumber(m, item)">
+                <select v-model="m" @change="getMonthNumber(m - 1, item)">
                   <option :value="index" v-for="(item, index) in months" :key="index">
                     {{ item }}
                   </option>
@@ -140,62 +140,57 @@
             </label>
           </div>
           <div class="icl-tbl">
-            <table
-              class="table-body"
-              v-if="allUsers != 0"
-              id="content"
-              ref="exportable_table"
-            >
-              <thead>
-                <tr role="row">
-                  <th>Transaction ID</th>
-                  <th>Time</th>
-                  <th>Receiver</th>
-                  <th>DISCO</th>
-                  <th>Bal Before</th>
-                  <th>Bal After</th>
-                  <th>Amount</th>
-                  <th>Source</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="item in allUsers"
-                  :key="item.id"
-                  @click="getTransactionDetailUsers(item.user, item.ref)"
-                >
-                  <td>{{ item.ref }}</td>
-                  <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
-                  <td>{{ item.reciever }}</td>
-                  <td>{{ item.network }}</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
-                  <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
-                  <td>{{ item.m }}</td>
-                  <td v-if="item.status == 1">Completed</td>
-                  <td v-if="item.status == 0">Failed</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <button @click="prev" class="pg-btn" :disabled="pageNumber <= 1">
-                    prev
-                  </button>
-                  <span v-for="(item, index) in new Array(page)" :key="index">
-                    <button
-                      :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                      @click="pageNumberget(index)"
-                    >
-                      {{ index + 1 }}
-                    </button>
-                  </span>
-                  <button @click="next" class="pg-btn" :disabled="pageNumber >= page">
-                    next
-                  </button>
-                </tr>
-              </tfoot>
-            </table>
+            <div v-if="allUsers != 0">
+              <table
+                class="table-body"
+                style="width: 100%"
+                id="content"
+                ref="exportable_table"
+              >
+                <thead>
+                  <tr role="row">
+                    <th>Transaction ID</th>
+                    <th>Time</th>
+                    <th>Receiver</th>
+                    <th>DISCO</th>
+                    <th>Bal Before</th>
+                    <th>Bal After</th>
+                    <th>Amount</th>
+                    <th>Source</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="item in allUsers"
+                    :key="item.id"
+                    @click="getTransactionDetailUsers(item.user, item.ref)"
+                  >
+                    <td>{{ item.ref }}</td>
+                    <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
+                    <td>{{ item.reciever }}</td>
+                    <td>{{ item.network }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
+                    <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
+                    <td>{{ item.m }}</td>
+                    <td v-if="item.status == 1">Completed</td>
+                    <td v-if="item.status == 0">Failed</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="max-width: 950px">
+                <div>
+                  <v-pagination
+                    v-model="per_page"
+                    :pages="page"
+                    :range-size="1"
+                    active-color="#DCEDFF"
+                    @update:modelValue="pageNumberget"
+                  />
+                </div>
+              </div>
+            </div>
             <div v-else style="width: 100%; text-align: center; font-weight: bold">
               No Transaction found
             </div>
@@ -214,10 +209,12 @@ import moment from "moment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx/xlsx.mjs";
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 export default {
   name: "transfer -app",
-  components: { Header2, Loading },
+  components: { Header2, Loading, VPagination },
   data() {
     return {
       id: "",
@@ -307,7 +304,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = m;
       } else {
-        this.am = "0" + parseInt(m + 1);
+        this.am = "0" + parseInt(m);
       }
       try {
         const getUsers = await axios.get(
@@ -334,7 +331,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
       this.day = day;
 
@@ -364,7 +361,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
       this.y = year;
       if (this.day) {
@@ -392,7 +389,7 @@ export default {
         try {
           const getUsers = await axios.get(
             `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=3
-            &month=${this.m + 1}&year=${this.y}`,
+            &month=${this.m}&year=${this.y}`,
             {
               headers: {
                 Authorization: "Bearer " + this.token,
@@ -423,15 +420,15 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
 
       if (this.day) {
-        this.pageNumber = newPagenumber + 1;
+        this.pageNumber = newPagenumber;
         this.$router.push({
           path: this.$route.path,
           query: {
-            pageNumber: newPagenumber + 1,
+            pageNumber: newPagenumber,
           },
         });
 
@@ -487,7 +484,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
       try {
         const getUsers = await axios.get(
@@ -519,7 +516,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
       try {
         const getUsers = await axios.get(
@@ -545,7 +542,7 @@ export default {
   },
   async mounted() {
     const d = new Date();
-    this.m = d.getMonth("MM");
+    this.m = d.getMonth("MM") + 1;
     this.y = d.getFullYear("yyyy");
     this.day = String(d.getDate()).padStart(2, 0);
 
@@ -583,7 +580,7 @@ export default {
     if (this.m.toString().length == 2) {
       this.am = this.m;
     } else {
-      this.am = "0" + parseInt(this.m + 1);
+      this.am = "0" + parseInt(this.m);
     }
     try {
       const getUsers = await axios.get(
@@ -705,7 +702,7 @@ main {
   margin: 10px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 label {
   display: inline-block;

@@ -309,27 +309,196 @@
               <span class="fa fa-angle-right icon-menu"></span>
             </router-link>
           </li>
-
-          <li
-            class="width:100%;border:1px solid black"
-            style="margin-bottom: 60px !important"
-          >
-            <a
-              href="javascript:void(0)"
-              @click="logOut"
-              style="width: 100%; display: flex; justify-content: space-between"
+          <li class="services">Plan settings</li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/plan/mtn"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
             >
               <span class="menu-item">
                 <span class="chl-ck">
-                  <span
-                    class="fa fa-sign-out icon-menu"
-                    style="margin-top: 20px !important"
-                  ></span>
+                  <span class="fa fa-cog icon-menu"></span>
                 </span>
 
-                Sign out</span
+                MTN</span
               >
-              <span class="fa fa-angle-right icon-menu lvkl"></span>
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/plan/Airtel"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-cog icon-menu"></span>
+                </span>
+
+                Airtel</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/plan/mobile"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-cog icon-menu"></span>
+                </span>
+
+                9Mobile</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/plan/glo"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-bell icon-menu"></span>
+                </span>
+
+                GLO</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="services">TV settings</li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/tv/dstv"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-cog icon-menu"></span>
+                </span>
+
+                DSTV</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/tv/gotv"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-cog icon-menu"></span>
+                </span>
+
+                GOTV</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/tv/startimes"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-cog icon-menu"></span>
+                </span>
+
+                STARTIMES</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li class="width:100%;border:1px solid black">
+            <router-link
+              to="/tv/showmax"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-bell icon-menu"></span>
+                </span>
+
+                SHOWMAX</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
+            </router-link>
+          </li>
+          <li style="margin-bottom: 50px !important">
+            <a
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+              "
+              href="javascript:void(0)"
+              @click="logOut"
+              active-class="bd-l"
+            >
+              <span class="menu-item">
+                <span class="chl-ck">
+                  <span class="fa fa-sign-out icon-menu"></span>
+                </span>
+
+                Logout</span
+              >
+              <span class="fa fa-angle-right icon-menu"></span>
             </a>
           </li>
         </ul>
@@ -445,10 +614,10 @@ ul li {
 }
 
 .menu-item {
-  font-size: 0.9rem;
+  font-size: 12px;
 }
 .icon-menu {
-  font-size: 0.9rem !important ;
+  font-size: 10px !important ;
 }
 li:hover {
   transition-duration: 0.5s;
@@ -496,7 +665,11 @@ li:hover {
   color: #fff;
 
   border-radius: 100%;
-  padding: 6px;
+  padding: 3px;
+  height: 13px;
+  width: 13px;
+  display: inline-block;
+  font-size: 10px !important;
   align-content: center;
   margin-right: 10px;
   text-align: center;

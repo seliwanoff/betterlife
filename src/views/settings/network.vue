@@ -152,6 +152,8 @@ export default {
       cashglo: "",
       airtime: 1,
       airtimetocash: 0,
+      gloapi: "",
+      airtelapi: "",
     };
   },
 
@@ -184,6 +186,8 @@ export default {
       this.cashmtn = response.data.data.cashmtn;
       this.cashglo = response.data.data.cashglo;
       this.airtime = response.data.data.airtime;
+      this.gloapi = response.data.data.gloapi;
+      this.airtelapi = response.data.data.airtelapi;
 
       this.cbill = response.data.data.cbill;
     } catch (e) {
@@ -274,6 +278,8 @@ export default {
         cashglo: this.cashglo,
         airtime: this.airtime,
         airimetocashstatus: this.airtimetocash,
+        airtelapi: this.airtelapi,
+        gloapi: this.gloapi,
       };
       try {
         const headers = {

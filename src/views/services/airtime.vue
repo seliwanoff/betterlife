@@ -96,7 +96,7 @@
 
                   <label for="search">
                     Month:
-                    <select v-model="m" @change="getMonthNumber(m, item)">
+                    <select v-model="m" @change="getMonthNumber(m - 1, item)">
                       <option :value="index" v-for="(item, index) in months" :key="index">
                         {{ item }}
                       </option>
@@ -147,100 +147,91 @@
                 </label>
               </div>
               <div class="icl-tbl">
-                <table
-                  class="table-body"
-                  v-if="airtimeTransaction != 0"
-                  id="content"
-                  ref="exportable_table"
-                >
-                  <thead>
-                    <tr role="row">
-                      <th>Transaction ID</th>
-                      <th>Time</th>
-                      <th>Receiver</th>
-                      <th>Network</th>
-                      <th>Bal Before</th>
-                      <th>Bal After</th>
-                      <th>Amount</th>
-                      <th>Source</th>
-                      <th>Status</th>
-                      <!--<th>Action</th>-->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="item in airtimeTransaction"
-                      :key="item.id"
-                      @click="getTransactionDetailUsers(item.user, item.ref)"
-                    >
-                      <td>{{ item.ref }}</td>
-                      <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
-                      <td>{{ item.reciever }}</td>
-
-                      <td v-if="item.name == 1 && item.name != 'succesfull'">MTN</td>
-                      <td v-else-if="item.name == 2 && item.name != 'succesfull'">
-                        Airtel
-                      </td>
-                      <td v-else-if="item.name == 3 && item.name != 'succesfull'">
-                        9mobile
-                      </td>
-                      <td v-else-if="item.name == 4 && item.name != 'succesfull'">GLO</td>
-                      <td
-                        v-else-if="
-                          item.name != 1 &&
-                          item.name != 2 &&
-                          item.name != 3 &&
-                          item.name != 4 &&
-                          item.name != 'succesfull'
-                        "
+                <div class="table-body" v-if="airtimeTransaction != 0">
+                  <table style="width: 100%" id="content" ref="exportable_table">
+                    <thead>
+                      <tr role="row">
+                        <th style="width: 100px">Transaction ID</th>
+                        <th>Time</th>
+                        <th>Receiver</th>
+                        <th>Network</th>
+                        <th>Bal Before</th>
+                        <th>Bal After</th>
+                        <th>Amount</th>
+                        <th>Source</th>
+                        <th>Status</th>
+                        <!--<th>Action</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="item in airtimeTransaction"
+                        :key="item.id"
+                        @click="getTransactionDetailUsers(item.user, item.ref)"
                       >
-                        {{ item.name }}
-                      </td>
+                        <td style="max-width: 50px !important">{{ item.ref }}</td>
+                        <td>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</td>
+                        <td>{{ item.reciever }}</td>
 
-                      <td v-if="item.network == 1 && item.name == 'succesfull'">MTN</td>
-                      <td v-else-if="item.network == 2 && item.name == 'succesfull'">
-                        Airtel
-                      </td>
-                      <td v-else-if="item.network == 3 && item.name == 'succesfull'">
-                        9mobile
-                      </td>
-                      <td v-else-if="item.network == 4 && item.name == 'succesfull'">
-                        GLO
-                      </td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
-                      <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
-                      <td>{{ item.m }}</td>
-                      <td v-if="item.status == 1">Completed</td>
-                      <td v-if="item.status == 0">Failed</td>
-                      <!---
+                        <td v-if="item.name == 1 && item.name != 'succesfull'">MTN</td>
+                        <td v-else-if="item.name == 2 && item.name != 'succesfull'">
+                          Airtel
+                        </td>
+                        <td v-else-if="item.name == 3 && item.name != 'succesfull'">
+                          9mobile
+                        </td>
+                        <td v-else-if="item.name == 4 && item.name != 'succesfull'">
+                          GLO
+                        </td>
+                        <td
+                          v-else-if="
+                            item.name != 1 &&
+                            item.name != 2 &&
+                            item.name != 3 &&
+                            item.name != 4 &&
+                            item.name != 'succesfull'
+                          "
+                        >
+                          {{ item.name }}
+                        </td>
+
+                        <td v-if="item.network == 1 && item.name == 'succesfull'">MTN</td>
+                        <td v-else-if="item.network == 2 && item.name == 'succesfull'">
+                          Airtel
+                        </td>
+                        <td v-else-if="item.network == 3 && item.name == 'succesfull'">
+                          9mobile
+                        </td>
+                        <td v-else-if="item.network == 4 && item.name == 'succesfull'">
+                          GLO
+                        </td>
+                        <td>&#8358;{{ Intl.NumberFormat().format(item.bbefore) }}</td>
+                        <td>&#8358;{{ Intl.NumberFormat().format(item.bafter) }}</td>
+                        <td>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</td>
+                        <td>{{ item.m }}</td>
+                        <td v-if="item.status == 1">Completed</td>
+                        <td v-if="item.status == 0">Failed</td>
+                        <!---
                       <td>
                         <button @click="getEachUserDetails" class="btn-details">
                           Details
                         </button>
                       </td>
-                      -->
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <button @click="prev" class="pg-btn" :disabled="pageNumber <= 1">
-                        prev
-                      </button>
-                      <span v-for="(item, index) in new Array(page)" :key="index">
-                        <button
-                          :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                          @click="pageNumberget(index)"
-                        >
-                          {{ index + 1 }}
-                        </button>
-                      </span>
-                      <button @click="next" class="pg-btn" :disabled="pageNumber >= page">
-                        next
-                      </button>
-                    </tr>
-                  </tfoot>
-                </table>
+                      --></tr>
+                    </tbody>
+                  </table>
+                  <div>
+                    <div>
+                      <v-pagination
+                        v-model="per_page"
+                        :pages="page"
+                        :range-size="1"
+                        active-color="#DCEDFF"
+                        @update:modelValue="pageNumberget"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div v-else style="width: 100%; text-align: center; font-weight: bold">
                   No Transaction found
                 </div>
@@ -285,24 +276,13 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <button @click="prevs" class="pg-btn" :disabled="pageNumber <= 1">
-                        prev
-                      </button>
-                      <span v-for="(item, index) in new Array(page)" :key="index">
-                        <button
-                          :class="['pg-btn', pageNumber == index + 1 ? 'active' : '']"
-                          @click="pageNumbergets(index)"
-                        >
-                          {{ index + 1 }}
-                        </button>
-                      </span>
-                      <button
-                        @click="nexts"
-                        class="pg-btn"
-                        :disabled="pageNumber >= page"
-                      >
-                        next
-                      </button>
+                      <v-pagination
+                        v-model="per_page"
+                        :pages="page"
+                        :range-size="1"
+                        active-color="#DCEDFF"
+                        @update:modelValue="pageNumberget"
+                      />
                     </tr>
                   </tfoot>
                 </table>
@@ -328,10 +308,12 @@ import moment from "moment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx/xlsx.mjs";
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 export default {
   name: "Bill -app",
-  components: { Header2, Loading, TabNav, Tab },
+  components: { Header2, Loading, TabNav, Tab, VPagination },
   data() {
     return {
       id: "",
@@ -423,7 +405,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = m;
       } else {
-        this.am = "0" + parseInt(m + 1);
+        this.am = "0" + parseInt(m);
       }
       try {
         const getUsers = await axios.get(
@@ -460,7 +442,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
       this.day = day;
       try {
@@ -490,7 +472,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
       this.y = year;
       if (this.day) {
@@ -518,7 +500,7 @@ export default {
         try {
           const getUsers = await axios.get(
             `${process.env.VUE_APP_BASE_URL}api/gettransactions?type=1
-            &month=${this.m + 1}&year=${this.y}`,
+            &month=${this.m}&year=${this.y}`,
             {
               headers: {
                 Authorization: "Bearer " + this.token,
@@ -551,15 +533,15 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
 
       if (this.day) {
-        this.pageNumber = newPagenumber + 1;
+        this.pageNumber = newPagenumber;
         this.$router.push({
           path: this.$route.path,
           query: {
-            pageNumber: newPagenumber + 1,
+            pageNumber: newPagenumber,
           },
         });
 
@@ -573,7 +555,6 @@ export default {
             }
           );
           this.airtimeTransaction = getUsers.data.data.data;
-          console.log(this.airtimeTransaction);
           this.totalpage = getUsers.data.data.total;
           //this.per_page = getUsers.data.data.per_page;
           //this.page = Math.ceil(parseInt(this.totalpage / this.per_page) + 1);
@@ -618,7 +599,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
 
       try {
@@ -652,7 +633,7 @@ export default {
       if (this.m.toString().length == 2) {
         this.am = this.m;
       } else {
-        this.am = "0" + parseInt(this.m + 1);
+        this.am = "0" + parseInt(this.m);
       }
 
       try {
@@ -676,11 +657,11 @@ export default {
     },
 
     async pageNumbergets(newPagenumber) {
-      this.pageNumber = newPagenumber + 1;
+      this.pageNumber = newPagenumber;
       this.$router.push({
         path: this.$route.path,
         query: {
-          pageNumber: newPagenumber + 1,
+          pageNumber: newPagenumber,
         },
       });
 
@@ -762,7 +743,7 @@ export default {
   },
   async mounted() {
     const d = new Date();
-    this.m = d.getMonth("MM");
+    this.m = d.getMonth("MM") + 1;
     this.y = d.getFullYear("yyyy");
     this.day = String(d.getDate()).padStart(2, 0);
 
@@ -799,7 +780,7 @@ export default {
     if (this.m.toString().length == 2) {
       this.am = this.m;
     } else {
-      this.am = "0" + parseInt(this.m + 1);
+      this.am = "0" + parseInt(this.m);
     }
 
     try {

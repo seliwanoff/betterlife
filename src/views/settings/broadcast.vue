@@ -26,6 +26,10 @@
               ></textarea>
             </div>
             <div class="ml-xf">
+              <label for="email">Set Number <small>( 0 upward)</small></label> <br />
+              <input type="number" placeholder="Set Number" v-model="of" required />
+            </div>
+            <div class="ml-xf">
               <button :disabled="isDisabled" style="margin-top: 10px !important">
                 {{ btnText }}
               </button>
@@ -48,6 +52,7 @@ export default {
       title: "",
       body: "",
       status: null,
+      of: "0",
       message: "",
       btnText: "Send Broadcast",
       isDisabled: false,
@@ -60,6 +65,7 @@ export default {
       const data = {
         title: this.title,
         body: this.body,
+        of: this.of,
       };
       const datas = JSON.parse(localStorage.getItem("admin"));
 
@@ -121,7 +127,7 @@ export default {
 }
 .rg-c .gc-x {
   margin: 50px;
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
   margin: 100px auto;
   background: #fff;
@@ -168,7 +174,7 @@ label {
 input {
   outline: none;
   box-sizing: border-box;
-  height: 50px;
+
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 96%;
